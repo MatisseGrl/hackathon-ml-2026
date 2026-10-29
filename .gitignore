@@ -1,0 +1,23 @@
+# Données Kaggle : jamais dans le dépôt
+data/*
+!data/.gitkeep
+*.csv
+*.zip
+submissions/*
+!submissions/.gitkeep
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Identifiants Kaggle
+kaggle.json
+
+# Système
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
