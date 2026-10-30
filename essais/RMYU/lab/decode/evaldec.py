@@ -1,5 +1,5 @@
 """Évalue des décodages sur un cache (format cache.py). Usage : python -u lab/decode/evaldec.py <cache.npz> [variantes...]
-(lancer depuis C:/Users/curie/hk/essais/RMYU)"""
+(lancer depuis essais/RMYU)"""
 import sys, time; sys.path.append("../.."); sys.path.append("."); sys.path.append("lab/decode")
 import numpy as np, pandas as pd
 from sklearn.metrics import f1_score

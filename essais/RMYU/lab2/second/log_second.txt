@@ -1,0 +1,6 @@
+sizes [4546, 4546, 4546, 4545, 4545] prep 6s
+RES b_n4_person_seul_us: desaccord=0.1138 F1plis5=0.6468 F1plisX=0.6406 mean_delta=-0.00615 sd=0.00462 P(X>5)=0.092 P(X=5)=0.000 gain=E[max(0,d)]=0.00018 (6s)
+RES a_n3_0.6person0.4f2_user: desaccord=0.0638 F1plis5=0.6468 F1plisX=0.6422 mean_delta=-0.00441 sd=0.00332 P(X>5)=0.090 P(X=5)=0.000 gain=E[max(0,d)]=0.00013 (7s)
+RES c_familles8: desaccord=0.0367 F1plis5=0.6468 F1plisX=0.6477 mean_delta=+0.00102 sd=0.00247 P(X>5)=0.671 P(X=5)=0.000 gain=E[max(0,d)]=0.00158 (9s)
+RES d_egal8: desaccord=0.0425 F1plis5=0.6468 F1plisX=0.6462 mean_delta=-0.00052 sd=0.00262 P(X>5)=0.410 P(X=5)=0.000 gain=E[max(0,d)]=0.00080 (10s)
+fini

@@ -57,6 +57,8 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 | 17h45 | RMYU | Rejeté (fuite) | Seuils locaux : position du score d'une séance parmi les scores des séances étiquetées proches dans le temps | + seuils | 0,6559 (faux) | Fuite : le score hors pli d'une séance voisine vient d'un modèle entraîné avec le pli évalué, dont le contexte contient le label cherché. Sans les voisines du même mois : +0,0000 (`lab2/a3`) |
 | 17h45 | RMYU | Rejeté | Transductif : lissage vers les séances non étiquetées voisines, vers les labels connus, pseudo-labels itérés | | 0,6452 à 0,6467 (imbriqué) | Perd dès que le lissage est fort (`lab2/a4`) |
 | 17h45 | RMYU | Rejeté | Corrections ciblées après analyse d'erreur : bascule vers les labels des voisines, poids par segment, température selon le désaccord des modèles | | 0,6464 à 0,6487 (imbriqué) | Pic isolé (un cran à côté : 0,6461), du bruit. 56 % des erreurs sur les séances incertaines (P max < 0,52), aucun segment « cassé » (`lab2/a5`) |
+| 17h51 | RMYU | Rejeté | Graines supplémentaires (PersonStack 11, NeighborStack 7, Final2 7) : moyenne égale de 8 modèles (règle fixée d'avance), ou poids par famille de la n° 5 | toutes | égal 8 : 0,6462 (1 pli), 0,6329 (2 plis réunis ; n° 5 : 0,6322) ; familles 8 : 0,6477 / 0,6322 | Équivalents à la n° 5 (±0,001) : pas un meilleur modèle à lui seul |
+| 17h56 | RMYU | Sélection finale | Second choix de soumission (Kaggle garde le meilleur des deux scores privés) : gain attendu de max(n° 5, X) − n° 5 sur 3 000 « moitiés privées » simulées de 3 835 séances | | égal 8 : +0,0013 ; familles 8 : +0,0009 (agents indépendants : +0,0016) ; n° 3 : +0,0008 ; n° 4 : +0,0002 | Second choix : `sub_RMYU_blend8_egal_dup_quota_usersport.csv` (vaut la n° 5 en espérance, mais diffère sur 3,8 % des lignes) ; `essais/RMYU/second_pick.py` |
 
 ## Qu'est-ce que « difficile » veut dire ?
 _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pour **cette personne** :_
@@ -97,6 +99,6 @@ vrai hard             619            1736           5241
 - Indice 2 / 3 achetés ? (coût 0,5 / 1 pt) :
 
 ## Modèle final
-- Soumission sélectionnée : #
-- Pourquoi ce choix :
-- Explication courte du modèle (pour la fiche papier) :
+- Soumission sélectionnée : n° 5 (`sub_RMYU_blend5_egal_dup_quota_usersport.csv`, public 0,65523) ; si Kaggle permet deux sélections : n° 5 + `sub_RMYU_blend8_egal_dup_quota_usersport.csv` (recommandation RMYU, à confirmer par l'équipe sur Kaggle)
+- Pourquoi ce choix : meilleur score public et meilleure validation (0,6468, quotas avec les comptes réels du pli) ; aucune des pistes testées ensuite (parcours, paires, seuils locaux, transductif, corrections ciblées, graines) ne fait mieux au-delà du bruit. Le second fichier vaut la n° 5 en espérance mais se trompe sur d'autres séances : comme Kaggle garde le meilleur des deux scores privés, cela rapporte environ +0,001 attendu
+- Explication courte du modèle (pour la fiche papier) : moyenne des probabilités de 5 modèles HistGradientBoosting empilés (variables relatives à la personne + labels des séances voisines dans le temps), recopie du label des doublons exacts du train, puis quotas exacts par utilisateur + sport (les classes sont des tiers exacts calculés sur train + test : on attribue exactement le nombre restant de chaque classe)

@@ -1,5 +1,5 @@
 """HGB simple (lr .05, 300 it) sur build+add_resid [+ add_my_feats], plis communs, quotas par user.
-Usage (depuis C:/Users/curie/hk/essais/RMYU) : python -u lab/detective/evalf.py <tag> [none|all|feat1,feat2...] [drop:col,...]"""
+Usage (depuis essais/RMYU) : python -u lab/detective/evalf.py <tag> [none|all|feat1,feat2...] [drop:col,...]"""
 import sys, time, os, pickle; sys.path.append("../.."); sys.path.append("."); sys.path.append("lab/detective")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
