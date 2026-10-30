@@ -12,20 +12,22 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 
 | # | Heure | Qui (code) | Ce qui a changé | Pourquoi on pensait que ça aiderait | Val macro-F1 (moy ± std) | Score public |
 |---|-------|------------|-----------------|-------------------------------------|--------------------------|--------------|
-| 1 |       |            |                 |                                     |                          |              |
+| 1 |       |            | HistGradientBoosting (300 itérations, lr 0,05) + `UserStats` : variables relatives à l'utilisateur et au sport (ratio à sa médiane, écart-type, rang) | « Difficile » est mesuré par personne (~1/3 de chaque classe par utilisateur) : comparer la séance aux habitudes de la personne doit battre la vitesse brute | 0,568 ± 0,008 | |
 
 ## Expériences en validation (au moins 3 familles de modèles)
 
 | Heure | Qui | Famille | Modèle et paramètres | Variables | Val macro-F1 (moy ± std) | Remarque |
 |-------|-----|---------|----------------------|-----------|--------------------------|----------|
-|       |     | Linéaire (ex. régression logistique) | | | | |
-|       |     | Arbres / ensembles (ex. random forest, HistGB) | | | | |
-|       |     | Distance / probabiliste (ex. kNN, SVM, Bayes naïf) | | | | |
+|       |     | Linéaire | LogisticRegression, max_iter=3000, standardisée | UserStats (46 variables) | 0,489 ± 0,004 | Trop simple : les effets sont non linéaires |
+|       |     | Arbres / ensembles | HistGradientBoosting 300 it., lr 0,05 | UserStats (46 variables) | 0,568 ± 0,008 | Meilleur. RandomForest (300 arbres, min_samples_leaf=3) : 0,566 ± 0,003 |
+|       |     | Distance | kNN k=25, standardisé | UserStats (46 variables) | 0,531 ± 0,007 | Sensible à l'échelle et aux variables inutiles |
 
 ## Qu'est-ce que « difficile » veut dire ?
 _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pour **cette personne** :_
 
--
+- Chaque utilisateur a environ 1/3 de chaque classe (écart-type des parts : 0,04) : la cible est un niveau relatif à la personne, pas une vitesse absolue.
+- Les variables comptent donc relativement aux habitudes de l'utilisateur dans le même sport (ratio à la médiane, écart-type, rang).
+- Gain mesuré : HistGB avec colonnes brutes 0,525, avec variables relatives 0,558, avec rang et écart-type calculés dans chaque fold 0,568.
 
 ## Gate 2 : matrice de confusion et analyse d'erreur
 _Coller la matrice de confusion (validation croisée, prédictions hors fold) :_
@@ -37,7 +39,7 @@ vrai moderate
 vrai hard
 ```
 
-**Analyse d'erreur (au moins une phrase)** :
+**Analyse d'erreur (au moins une phrase)** : (HistGB, validation croisée) la classe `moderate` est la plus mal prédite (F1 0,46 contre 0,63 pour `easy` et 0,62 pour `hard`) : les séances moyennes se confondent avec les deux extrêmes, car la frontière entre niveaux est floue autour des habitudes de la personne.
 
 ## Indices
 - Indice 1 (16h20) :
