@@ -340,7 +340,11 @@ _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?
 
 - Scores : validation macro-F1 0,6505 ± 0,0064 (effectifs réels du fold, borne haute) ; public 0,65842
 
-## Soumission n° 8 : moyenne de 5 modèles (PersonStack ×3 variantes + Final2 ×2), doublons et quotas (18h10, 3MAS)
+## Soumissions n° 8 et n° 9 : mêmes réponses A à E que la n° 7, deux changements (18h07 et 18h09, code participant à renseigner)
+- n° 8 (`sub_07_more_seeds.csv`) : 5 graines de Final2 au lieu de 2 ; le mécanisme est la réduction de la variance. Public 0,65962.
+- n° 9 (`sub_08_seeds_neighbor.csv`) : n° 8 + NeighborStack, poids 0,15. Public 0,66032.
+- Validation complète non calculée pour ces deux fichiers, faute de temps. L'écart entre eux est dans le bruit.
+## Soumission n° 10 : moyenne de 5 modèles (PersonStack ×3 variantes + Final2 ×2), doublons et quotas (18h10, 3MAS)
 Code participant : 3MAS · Équipe n° : à renseigner · Date : 30/10
 
 ### A. Dessinez le pipeline final de votre équipe (2 points)
@@ -386,7 +390,7 @@ _Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou 
 - Suggestion : l'IA proposait ce mélange de 5 modèles comme meilleur que la n° 7 (0,6342 contre 0,6320, plus haut sur les 5 plis).
 - Rejetée / corrigée / acceptée après vérification : acceptée après vérification en validation, puis corrigée par le score public.
 - Ce qu'on a vérifié, et comment : on a refait la n° 7 avec exactement les mêmes plis et le même protocole, puis comparé pli par pli (+0,0007 à +0,0042). Mais l'écart moyen (+0,002) est plus petit que l'écart-type (±0,005),
-  et la n° 7 avait 3 graines de PersonStack contre 1 ici. Au public : 0,65648, moins que la n° 7 (0,65842). Conclusion : le gain était dans le bruit ; la n° 7 reste la meilleure.
+  et la n° 7 avait 3 graines de PersonStack contre 1 ici. Au public : 0,65648, moins que la n° 7 (0,65842). Conclusion : le gain était dans le bruit ; la n° 7 fait mieux, et les n° 8 et 9 (plus de graines) encore mieux (0,66032).
 
 ### D. De la prédiction à la recommandation (1 point)
 _L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
@@ -399,6 +403,6 @@ _L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Tro
 ### E. Votre contribution personnelle (non noté)
 _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
 3MAS : règles de travail avec l'IA (AGENTS.md), modèle PersonStackPlus (user_id catégoriel et résidus de vitesse),
-puis mélange de 5 modèles avec un protocole de validation des quotas plus réaliste, soumis en n° 8.
+puis mélange de 5 modèles avec un protocole de validation des quotas plus réaliste, soumis en n° 10.
 
 - Scores : validation macro-F1 0,6342 ± 0,0051 (quotas sur val + test de chaque pli, non comparable aux comptes réels du pli ; même protocole : n° 7 refaite 0,6320) ; public 0,65648
