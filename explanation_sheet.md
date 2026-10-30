@@ -1,23 +1,57 @@
 # Fiche d'explication des modèles soumis
 
 Une section **par soumission Kaggle**, ajoutée à la fin (même numéro que dans `LOG.md`).
-Le but : que chaque membre puisse expliquer le modèle sur papier, sans écran.
+Chaque section remplit **exactement** la fiche d'explication individuelle papier (questions A à E, mêmes intitulés, mêmes consignes).
+Le jour J, la fiche se fait en 20 minutes, appareils fermés, travail individuel, noté sur 6 points : chaque membre doit pouvoir la refaire de mémoire.
+On n'écrit que le code participant, jamais le nom.
 
-Modèle d'une section :
+Modèle d'une section (recopier les intitulés tels quels) :
 
 ```markdown
 ## Soumission n° <numéro> : <nom du modèle> (<heure>, <code participant>)
-- **Changements par rapport à la soumission précédente** : ...
-- **Architecture** (de la donnée brute à la prédiction, étape par étape) :
-  1. ...
-  2. ...
-- **Variables utilisées et pourquoi** : ...
-- **Modèle et paramètres, et pourquoi ce choix** : ...
-- **Essayé puis rejeté (et pourquoi)** : ...
-- **Scores** : validation macro-F1 <moyenne ± écart-type> ; public <score>
+Code participant : <code> · Équipe n° : <n°> · Date : <jj/mm>
+
+### A. Dessinez le pipeline final de votre équipe (2 points)
+_Du CSV brut jusqu'à submission.csv : chaque étape dans une boîte, reliées par des flèches. Écrivez dans chaque boîte ce qui est fait et avec quel outil (ex. « one-hot sur sport », « RandomForest, max_depth=12 »). Indiquez où se fait la validation._
+
+    [ train.csv / test.csv ]
+              |
+              v
+    [ étape 1 : ce qui est fait, avec quel outil ]
+              |
+              v
+    [ ... ]   <-- validation : où et comment (ex. src/validation.py, 5 folds stratifiés, graine 42, macro-F1)
+              |
+              v
+    [ submission.csv ]
+
+### B. Pourquoi votre modèle final fait-il mieux que votre première soumission ? (2 points)
+_Nommez votre modèle final et expliquez en deux lignes comment il produit une prédiction. Puis citez deux décisions (variables, modèle, hyperparamètres, validation) et expliquez par quel mécanisme chacune a amélioré le score._
+- Modèle final : ...
+- Comment il prédit (deux lignes) : ...
+- Décision 1 : ... → mécanisme : ... (score avant → après)
+- Décision 2 : ... → mécanisme : ... (score avant → après)
+
+### C. Une suggestion de l'IA que vous avez vérifiée (1 point)
+_Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou acceptée seulement après vérification. Qu'avez-vous vérifié, et comment ?_
+- Suggestion : ...
+- Rejetée / corrigée / acceptée après vérification : ...
+- Ce qu'on a vérifié, et comment : ...
+
+### D. De la prédiction à la recommandation (1 point)
+_L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
+- Comment utiliser le modèle : ...
+- Séance attendue : ...
+- Ce qui pourrait le rendre faux pour cet utilisateur : ...
+
+### E. Votre contribution personnelle (non noté)
+_En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
+...
+
+- Scores : validation macro-F1 <moyenne ± écart-type> ; public <score>
 ```
 
-<!-- Les sections des soumissions commencent ici. -->
+<!-- Les sections des soumissions commencent ici. La section n° 3 a été écrite avant ce format A à E. -->
 
 ## Soumission n° 3 : mélange PersonStack + Final2, doublons et quotas (16h59, RMYU)
 - **Changements par rapport à la soumission précédente** (n° 2, `NeighborStack`, public 0,61791) :

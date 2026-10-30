@@ -30,7 +30,7 @@ cours/                # notebooks du cours (classification, régression, cluster
 submissions/          # fichiers soumis sur Kaggle (versionnés)
 conversations/        # conversations IA, un fichier <login_github>.md par personne
 LOG.md                # journal des soumissions et des expériences
-explanation_sheet.md  # explication de chaque modèle soumis (architecture et choix)
+explanation_sheet.md  # fiche d'explication A à E remplie pour chaque modèle soumis
 ```
 
 **Règle d'or** : tout score de validation est calculé avec `src/validation.py`, sinon les scores ne sont pas comparables.

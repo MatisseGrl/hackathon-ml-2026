@@ -92,3 +92,9 @@ Je n'ai modifié aucun fichier. Si tu veux, je peux corriger le README et ajoute
 **Claude :** PR #7 fusionnée dans `main` (https://github.com/MatisseGrl/hackathon-ml-2026/pull/7). Nouvelle règle : à chaque soumission Kaggle, l'IA ajoute une section dans `explanation_sheet.md` (à la racine). Cette section donne les changements, l'architecture étape par étape, les variables, le modèle et ses paramètres, ce qui a été rejeté et les scores. Le fichier ne contient pour l'instant que le modèle de section : les 3 soumissions déjà faites n'ont pas encore de fiche, je peux les écrire si tu veux.
 
 Pour le point 4, les « habitudes », ce sont les variables `UserStats`. Pour chaque personne et chaque sport, on calcule sa vitesse médiane, sa durée médiane, etc. Ensuite, on compare chaque séance à ces valeurs : « cette course est 15 % plus rapide que d'habitude pour lui ». La question est de savoir sur quelles séances on calcule ces médianes : seulement celles du train, ou aussi celles du test (sans leur réponse, qu'on n'a pas). Ton modèle utilise aussi le test, alors que `LOG.md` dit que l'équipe l'a refusé. On en reparle plus tard comme tu l'as dit.
+
+**Alban121 :** Pour la regle sur la explanation sheet, il faut que l agent la remplisse en completant une fiche comme sur les 2 images. Dis moi si tu n arrive pas bien a lire. Respect rigouresement les questions sur la feuille
+
+(2 photos jointes : la « Fiche d'explication individuelle », questions A à E.)
+
+**Claude :** Je lis bien les deux feuilles (questions A à E). Je recopie le modèle dans `explanation_sheet.md` et j'adapte la règle.
