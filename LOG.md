@@ -28,7 +28,7 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 | 16h20 |     | Empilement | + jumeaux + par personne | + twin + local | 0,6140 ± 0,0036 | HGB régularisé : 0,6145 ± 0,0031 |
 | 16h25 |     | Empilement | + voisins serrés, HGB régularisé seul | + close | 0,6183 ± 0,0053 | Altitude ajoutée pour reconnaître un même parcours |
 | 16h25 |     | Vote | Moyenne HGB + ExtraTrees | toutes | 0,6195 ± 0,0044 | ExtraTrees seul : 0,6102 ± 0,0054 |
-| 16h25 |     | Vote | **`PersonStack`** : moyenne + poids 1,1 sur `moderate` | toutes | 0,6207 ± 0,0028 | Mesuré sur les blocs d'expérience ; revalidation de `src/person_stack.py` avec `evaluate` en cours. Poids choisi sur ces folds, donc un peu optimiste |
+| 16h25 |     | Vote | **`PersonStack`** : moyenne + poids 1,1 sur `moderate` | toutes | 0,6207 ± 0,0028 | Confirmé sur `src/person_stack.py` avec `evaluate`. Poids choisi sur ces folds, donc un peu optimiste |
 | 16h20 |     | Rejeté | Quotas d'un tiers par groupe | | 0,6037 | Moins bon que sans quotas |
 | 16h20 |     | Rejeté | `UserStats` ajusté aussi sur les lignes du test | | 0,6146 ± 0,0049 | +0,0006 seulement, c'est du bruit, et on ne prétraite pas sur le test |
 
@@ -52,7 +52,7 @@ vrai hard
 **Analyse d'erreur (au moins une phrase)** : (HistGB, validation croisée) la classe `moderate` est la plus mal prédite (F1 0,46 contre 0,63 pour `easy` et 0,62 pour `hard`) : les séances moyennes se confondent avec les deux extrêmes, car la frontière entre niveaux est floue autour des habitudes de la personne.
 
 ## Indices
-- Indice 1 (16h20) :
+- Indice 1 (16h20) : comparer une séance à ce que la personne fait d'habitude dans ce sport. Déjà exploité par `UserStats` et `PersonStack`, pas de gain à attendre.
 - Indice 2 / 3 achetés ? (coût 0,5 / 1 pt) :
 
 ## Modèle final
