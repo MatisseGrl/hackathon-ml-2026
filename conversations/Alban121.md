@@ -26,4 +26,10 @@
 
 **Alban121 :** merge toi meme si tu ne vois pas de probleme. Enleve des regles qu un humain doit revoir la PR, il doit seulement donner son accord
 
-**Claude :** Règle modifiée : l'assistant demande l'accord de la personne qui l'utilise, puis fusionne lui-même la PR. PR #1 fusionnée.
+**Claude :** Règle modifiée : l'assistant demande l'accord de la personne qui l'utilise, puis fusionne lui-même la PR.
+
+**Claude :** (avant fusion) `main` impose maintenant une fiche `essais/<code>/<code>.md` ; conflit avec les règles assouplies résolu en gardant les deux. Demande du code participant.
+
+**Alban121 :** 3MAS
+
+**Claude :** Fiche `essais/3MAS/3MAS.md` créée, PR #1 fusionnée.
