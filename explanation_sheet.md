@@ -339,3 +339,66 @@ _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?
 
 
 - Scores : validation macro-F1 0,6505 ± 0,0064 (effectifs réels du fold, borne haute) ; public 0,65842
+
+## Soumission n° 8 : moyenne de 5 modèles (PersonStack ×3 variantes + Final2 ×2), doublons et quotas (18h10, 3MAS)
+Code participant : 3MAS · Équipe n° : à renseigner · Date : 30/10
+
+### A. Dessinez le pipeline final de votre équipe (2 points)
+_Du CSV brut jusqu'à submission.csv : chaque étape dans une boîte, reliées par des flèches. Écrivez dans chaque boîte ce qui est fait et avec quel outil (ex. « one-hot sur sport », « RandomForest, max_depth=12 »). Indiquez où se fait la validation._
+
+    [ train.csv / test.csv ]
+              |
+              v
+    [ variables relatives à la personne : rang, écart à sa médiane, écart-type, par utilisateur + sport (pandas, UserStats, sans la cible) ]
+              |
+              v
+    [ 5 modèles empilés en 2 étages (HistGradientBoosting, scikit-learn) :
+      PersonStack HGB seul, PersonStack HGB + ExtraTrees, PersonStackPlus (+ user_id catégoriel, + résidus de vitesse),
+      Final2 graine 42, Final2 graine 7.
+      Étage 1 : niveau attendu de la séance ; étage 2 : + labels des séances voisines de la même personne (même mois, même parcours),
+      calculés hors pli pour ne jamais voir sa propre cible ]   <-- validation : src/validation.py, 5 folds stratifiés, graine 42, macro-F1
+              |
+              v
+    [ moyenne simple des probabilités des 5 modèles (0,2 chacun) ]
+              |
+              v
+    [ doublons : séance du test identique à une séance du train sur 16 colonnes → on recopie son label ]
+              |
+              v
+    [ quotas par utilisateur + sport : tiers exacts sur train + test (N//3 easy, 2N//3 − N//3 moderate, le reste hard),
+      moins ce que le train contient → affectation qui maximise la somme des log-probabilités (NumPy pur) ]
+              |                     <-- validation des quotas : val + test de chaque pli traités comme non étiquetés, comme le vrai test
+              v
+    [ submission.csv ]
+
+### B. Pourquoi votre modèle final fait-il mieux que votre première soumission ? (2 points)
+_Nommez votre modèle final et expliquez en deux lignes comment il produit une prédiction. Puis citez deux décisions (variables, modèle, hyperparamètres, validation) et expliquez par quel mécanisme chacune a amélioré le score._
+- Modèle final : moyenne de 5 modèles empilés (3 variantes de PersonStack, Final2 avec 2 graines) + doublons + quotas par utilisateur et sport.
+- Comment il prédit (deux lignes) : chaque modèle compare la séance aux habitudes de la personne et à ses séances proches dans le temps, et donne 3 probabilités ; on fait leur moyenne.
+  Puis, dans chaque couple personne + sport, on donne exactement le nombre d'easy, de moderate et de hard qui reste aux séances les plus probables pour chaque classe.
+- Décision 1 : comparer la séance à la personne et à ses séances voisines (empilement) → mécanisme : « hard » est un tiers des séances **de cette personne**, et sa forme change dans le temps ;
+  on compare donc à ses habitudes et à ses séances proches (validation 0,568 → 0,6207).
+- Décision 2 : quotas exacts par utilisateur + sport → mécanisme : les classes sont des tiers exacts sur train + test, donc on sait combien de chaque classe il reste dans le test ;
+  il ne reste qu'à bien classer les séances à l'intérieur de chaque personne (public 0,61791 (n° 2) → 0,65332 (n° 4)). Mélanger 5 modèles ajoute un peu (même protocole : 0,6251 → 0,6342), car leurs erreurs diffèrent en partie.
+
+### C. Une suggestion de l'IA que vous avez vérifiée (1 point)
+_Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou acceptée seulement après vérification. Qu'avez-vous vérifié, et comment ?_
+- Suggestion : l'IA proposait ce mélange de 5 modèles comme meilleur que la n° 7 (0,6342 contre 0,6320, plus haut sur les 5 plis).
+- Rejetée / corrigée / acceptée après vérification : acceptée après vérification en validation, puis corrigée par le score public.
+- Ce qu'on a vérifié, et comment : on a refait la n° 7 avec exactement les mêmes plis et le même protocole, puis comparé pli par pli (+0,0007 à +0,0042). Mais l'écart moyen (+0,002) est plus petit que l'écart-type (±0,005),
+  et la n° 7 avait 3 graines de PersonStack contre 1 ici. Au public : 0,65648, moins que la n° 7 (0,65842). Conclusion : le gain était dans le bruit ; la n° 7 reste la meilleure.
+
+### D. De la prédiction à la recommandation (1 point)
+_L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
+- Comment utiliser le modèle : construire les variables des 3 séances comme pour le test (vitesse, distance, dénivelé comparés aux habitudes de 4127 en course, date du jour), prédire P(easy) pour chacune
+  (sans quotas, qui n'ont de sens que pour un groupe de séances) et recommander celle qui a la plus forte P(easy).
+- Séance attendue : la (1), 5 km à plat à 9 km/h : plus lente que sa médiane, courte, sans dénivelé. La (2) est longue avec 300 m de montée, la (3) est 20 % plus rapide que sa médiane.
+- Ce qui pourrait le rendre faux pour cet utilisateur : la cible ressemble à sa fréquence cardiaque, que nous ne voyons pas (chaleur, fatigue, maladie) ; le modèle apprend des corrélations, pas des causes
+  (on court parfois lentement parce qu'on est fatigué, donc une séance lente peut être « hard ») ; sa forme a pu changer depuis ses dernières séances connues ; et la classe est relative à son propre historique, pas absolue.
+
+### E. Votre contribution personnelle (non noté)
+_En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
+3MAS : règles de travail avec l'IA (AGENTS.md), modèle PersonStackPlus (user_id catégoriel et résidus de vitesse),
+puis mélange de 5 modèles avec un protocole de validation des quotas plus réaliste, soumis en n° 8.
+
+- Scores : validation macro-F1 0,6342 ± 0,0051 (quotas sur val + test de chaque pli, non comparable aux comptes réels du pli ; même protocole : n° 7 refaite 0,6320) ; public 0,65648
