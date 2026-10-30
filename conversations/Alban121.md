@@ -373,3 +373,7 @@ La bonne comparaison se fait donc entre 0,6242 (PersonStack actuel, même protoc
 ## 2026-10-30 17:20 : vérifier que ma conversation est à jour sur GitHub (Claude, projet claude.ai, branche `Alban121/conversation-a-jour`)
 
 **Alban121 :** ma conversation dans le github est a jour ?
+
+**Claude :** Non, il n'était pas à jour. Il manquait le fil « Lancer les calculs sur mon ordinateur » en entier et la fin du fil sur le meilleur score (fusion de la PR #13, ta soumission n° 10 à 0,65648). En plus, les deux premiers fils (résumé du dépôt, viser 0,6) n'étaient que des résumés, pas du mot pour mot.
+
+J'ai tout recopié mot pour mot depuis les fils du projet, en gardant `#START 3MAS Hackathon ML 2026`, `#CHECKPOINT2` et `#CHECKPOINT-2` à leur place. C'est dans la [PR #17](https://github.com/MatisseGrl/hackathon-ml-2026/pull/17). **Je la fusionne ?**
