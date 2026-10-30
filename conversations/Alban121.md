@@ -124,3 +124,15 @@ Deux points à signaler :
 **Alban121 :** ne modifie pas log.md ce n ai pas un submit kaggle. Met juste le code dans mes essaies
 
 **Claude :** Ligne retirée de `LOG.md`, essai noté non concluant dans `essais/3MAS/3MAS.md`, PR #10 fusionnée.
+
+**Alban121 :** ouvre un fil , dis moi quel est le meilleur score actuellement de notre equipe
+
+**Claude :** **Meilleur score public Kaggle : 0,65332**, soumission n° 4 (vers 17h00, poussée par MatisseGrl). Le modèle est `PersonStack` HGB seul (`src/person_stack.py`), suivi des quotas exacts par utilisateur et sport (`src/quotas.py`, méthode hongroise). Juste derrière vient la n° 3 de RMYU à 0,65298 (mélange 0,6 PersonStack + 0,4 Final2, avec doublons et quotas).
+
+**Meilleure validation croisée :** c'est ce même modèle n° 4, avec 0,6404 ± 0,0038 (effectifs réels du fold, donc borne haute) ou 0,6344 ± 0,0026 (erreur simulée, plus réaliste). Quelques essais non soumis atteignent 0,6406 à 0,6423, mais ils restent dans le bruit d'après `LOG.md`.
+
+Sans quotas, le meilleur est `PersonStack` à 0,6207. Ton dernier essai, PersonStackPlus, est à 0,6221 ± 0,0021. Toutes les branches sont fusionnées dans `main`, il n'y a donc pas de meilleur score caché ailleurs.
+
+**Alban121 :** En te basant sur ca essaye de reussir a faire un meilleur score. Tu peux tester ce que tu veux, des que tu as un resultat potentiellement superieur a ce qu on a actuellement envoie le moi.
+
+**Claude :** Je commence par relancer le meilleur modèle actuel (PersonStack + quotas) pour avoir une base, puis je teste des améliorations.

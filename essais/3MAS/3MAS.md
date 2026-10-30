@@ -23,3 +23,12 @@
 - Pourquoi on pense que ça aide : essai non concluant (+0,001 sur PersonStack, dans le bruit) ; d'autres membres de l'équipe font mieux. Gardé pour trace.
 - Score de validation (moyenne ± écart-type) : 0,6221 ± 0,0021.
 - Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : aucune.
+
+## 2026-10-30 17h10 · Claude Code / Claude Opus 5.5 · mélange de 5 modèles + doublons + quotas
+- Ce qui a changé : `cache_proba.py` met en cache les probabilités hors pli (P(val + test) pour chaque pli de `src/validation.py`, puis P(test) entraîné sur tout le train) ; `post_3mas.py` applique doublons exacts + quotas en NumPy pur (pas de scipy) en traitant val + test comme non étiquetés, comme pour le vrai test ; `multi_3mas.py` mélange plusieurs caches et écrit `submissions/sub_3MAS_melange5_doublons_quotas.csv`. Les caches (`cache/`) ne sont pas versionnés.
+- Modèle : moyenne à poids égaux (0,2 chacun) de PersonStack HGB seul, PersonStack HGB + ExtraTrees, PersonStackPlus, Final2 (RMYU, graine 42) et Final2 (graine 7). Puis recopie du label des doublons exacts du train, puis quotas exacts par utilisateur + sport (N // 3, 2N // 3 − N // 3, reste).
+- Pourquoi on pense que ça aide : cinq modèles différents se trompent à des endroits différents ; la moyenne réduit la variance avant l'affectation sous quotas.
+- Score de validation (même protocole pour tous, quotas sur val + test de chaque pli) : 0,6342 ± 0,0051. Soumission n° 4 refaite ainsi : 0,6251 ± 0,0049 ; soumission n° 3 refaite : 0,6309 ± 0,0060. Le mélange gagne sur les 5 plis contre les deux (par pli : 0,6389 / 0,6277 / 0,6349 / 0,6289 / 0,6405).
+- Attention : les 0,6344 à 0,6404 de `LOG.md` pour la n° 4 utilisaient les vrais effectifs du pli, donc ne sont pas comparables à ces chiffres.
+- Rejeté (dans le bruit) : quotas par utilisateur au lieu d'utilisateur + sport, arrondi « frac » de RMYU au lieu de « floor », température et moyenne géométrique (l'affectation ne change pas quand on multiplie les log-probabilités).
+- Astuce : lancer deux scripts HistGB en parallèle sans `OMP_NUM_THREADS` les ralentit énormément (40 s → plus de 25 min par pli).
