@@ -19,3 +19,11 @@
 **Alban121 :** pour le point 6 on change la regle : chaque agent doit travailler sur une branche et proposer de merge quand le sujet de la branche est complete. Pour le point 5 ajoute cette regle. Pour le point 4 : ajoute une regle : chaque agent doit creer un fichier .md nommer "{utilisateur}.md" l'utilisateur est le nom github de la personne qui utilise l agent, lefichier doit etre completer avec la retranscription de la discution, commence les fichier par #START. Pour le 3 ce point n est pas grave. Je n ai pas compris les 2 premiers.
 
 **Claude :** Règles 4, 5 et 6 ajoutées dans `AGENTS.md` sur une branche, avec une pull request vers `main` ; ce fichier est créé. Explication simple des points 1 et 2 donnée dans le fil.
+
+**Alban121 :** Reessaye normalement c est bon
+
+**Claude :** Branche poussée et PR #1 ouverte vers `main`.
+
+**Alban121 :** merge toi meme si tu ne vois pas de probleme. Enleve des regles qu un humain doit revoir la PR, il doit seulement donner son accord
+
+**Claude :** Règle modifiée : l'assistant demande l'accord de la personne qui l'utilise, puis fusionne lui-même la PR. PR #1 fusionnée.

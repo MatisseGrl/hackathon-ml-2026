@@ -24,7 +24,7 @@ git push
 - `git add .`, `git add -A`, `git commit -a`
 - `git reset --hard`, `git checkout -- <fichier>`, `git restore <fichier>`, `git clean`, `git rebase`, `git stash` sur des fichiers des autres
 - pour un humain : créer, supprimer ou renommer des branches ; tout travail se fait sur `main`
-- pour un assistant IA : pousser directement sur `main`, ou fusionner (merge) soi-même sa branche
+- pour un assistant IA : pousser directement sur `main`, ou fusionner (merge) sa branche sans l'accord de la personne qui l'utilise
 - résoudre soi-même un conflit sur un fichier qui n'est pas dans son dossier
 
 **Assistant IA : une branche par sujet.**
@@ -35,7 +35,7 @@ git add essais/<code>/ conversations/<login_github>.md
 git commit -m "ce que j'ai fait, score de validation"
 git push -u origin <login_github>/<sujet>
 ```
-Quand le sujet de la branche est terminé, l'assistant **propose** de la fusionner (pull request vers `main`). C'est un humain de l'équipe qui accepte la fusion.
+Quand le sujet de la branche est terminé, l'assistant ouvre une pull request vers `main` et **demande l'accord** de la personne qui l'utilise. Une fois l'accord donné, l'assistant fusionne lui-même la pull request (pas besoin de relecture humaine du code).
 
 **Si `git pull` ou `git push` affiche une erreur ou un conflit : ne rien forcer, ne rien supprimer, ne rien « réparer ». Appeler le responsable du dépôt.**
 
