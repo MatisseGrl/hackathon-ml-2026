@@ -21,6 +21,7 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 |       |     | Linéaire | LogisticRegression, max_iter=3000, standardisée | UserStats (46 variables) | 0,489 ± 0,004 | Trop simple : les effets sont non linéaires |
 |       |     | Arbres / ensembles | HistGradientBoosting 300 it., lr 0,05 | UserStats (46 variables) | 0,568 ± 0,008 | Meilleur. RandomForest (300 arbres, min_samples_leaf=3) : 0,566 ± 0,003 |
 |       |     | Distance | kNN k=25, standardisé | UserStats (46 variables) | 0,531 ± 0,007 | Sensible à l'échelle et aux variables inutiles |
+| 16h30 | 3MAS | Ensemble | Vote soft : HistGB (63 feuilles, lr 0,03, user_id catégoriel) + ExtraTrees (500 arbres, user_id one-hot) | UserStats sur train+test (sans cible) + résidus de vitesse par utilisateur-sport + user_id | 0,601 ± 0,005 | `essais/3MAS/modele_06.py`. user_id catégoriel seul : 0,568 → 0,589 |
 
 ## Qu'est-ce que « difficile » veut dire ?
 _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pour **cette personne** :_
