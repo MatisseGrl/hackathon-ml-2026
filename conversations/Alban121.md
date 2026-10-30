@@ -72,3 +72,13 @@ Je n'ai modifié aucun fichier. Si tu veux, je peux corriger le README et ajoute
 6. Il n'y a rien pour la explanation sheet. Il n y avait pas une regle dessus ?
 
 **Claude :** Je m'y mets : je cherche d'abord s'il existait une règle sur la fiche d'explication, puis je modifie les fichiers sur une branche.
+
+**Claude :** C'est fait, sur la branche `Alban121/regles-readme` (PR #7 : https://github.com/MatisseGrl/hackathon-ml-2026/pull/7). Je la fusionne dès que tu me donnes ton accord.
+
+1. `README.md` est à jour : les données sont dans le dépôt, tout le monde peut modifier les fichiers, et les IA travaillent sur des branches.
+3. Le fichier de conversation commence maintenant par `#START <code> Hackathon ML 2026`. La retranscription doit être mot pour mot, et une règle `#CHECKPOINT` a été ajoutée. Dans ton fichier, j'ai mis `#START 3MAS Hackathon ML 2026`, `#CHECKPOINT2`, puis ce fil recopié mot pour mot. Les conversations d'avant restent des résumés, je n'ai pas leur texte exact.
+4. Dans `LOG.md`, l'équipe a écrit qu'elle refusait de calculer les habitudes de chaque personne en utilisant aussi les lignes du test. Pourtant, ton modèle à 0,601 le fait. Ce n'est pas de la triche, puisque la réponse du test n'est pas utilisée. Mais l'équipe dit une chose et en fait une autre, donc il faudra décider à l'oral si on l'autorise. Ça ne bloque rien.
+5. Règle ajoutée : quand quelqu'un dit qu'il a fait une soumission Kaggle, l'IA remplit la ligne de `LOG.md` (changements depuis la dernière soumission, heure, code, scores). Elle ne demande que ce qu'elle ne trouve pas, en général le score public.
+6. Non, il n'y a jamais eu de vraie règle là-dessus. Il y a seulement « tout modèle doit pouvoir être expliqué sur papier », et une case vide « Explication courte du modèle (pour la fiche papier) » en bas de `LOG.md`. Je peux ajouter une règle (par exemple : pour chaque modèle soumis, l'IA écrit son explication en quelques lignes) et préparer la fiche du meilleur modèle. Dis-moi si tu veux.
+
+À noter : MatisseGrl doit encore ajouter son code dans son `#START`. Je ne le connais pas.
