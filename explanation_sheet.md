@@ -172,7 +172,66 @@ et vérification des pistes par sélection imbriquée et relecture adversariale 
 
 - Scores : validation macro-F1 0,6468 ± 0,0073 (quotas appliqués au pli avec ses vrais comptes ; même protocole : n° 3 0,6437, PersonStack seul 0,6406) ; public 0,65523
 
-## Soumission n° 6 : PersonStack HGB 3 graines + Final2 2 graines + doublons + quotas (17h58, code participant à renseigner)
+## Soumission n° 6 : moyenne de 8 modèles, second choix final (17h59, RMYU)
+Code participant : RMYU · Équipe n° : à renseigner · Date : 30/10
+
+### A. Dessinez le pipeline final de votre équipe (2 points)
+_Du CSV brut jusqu'à submission.csv : chaque étape dans une boîte, reliées par des flèches. Écrivez dans chaque boîte ce qui est fait et avec quel outil (ex. « one-hot sur sport », « RandomForest, max_depth=12 »). Indiquez où se fait la validation._
+
+    [ train.csv / test.csv ]
+              |
+              v
+    [ variables relatives à la personne (rangs, écarts à sa médiane par utilisateur + sport, vitesse résiduelle), pandas, sans la cible ]
+              |
+              v
+    [ 8 modèles HistGradientBoosting empilés en 2 étages : PersonStack (graines 42, 7, 11), Final2 (graines 42, 7),
+      NeighborStack (graines 42, 7), Resid2 ; étage 2 = + labels des séances voisines de la personne, calculés hors pli ]
+              |                     <-- validation : src/validation.py, 5 folds stratifiés, graine 42, macro-F1
+              v
+    [ moyenne simple des probabilités des 8 modèles (poids 1/8) ]
+              |
+              v
+    [ doublons exacts du train (16 colonnes) : on recopie le label (326 séances) ]
+              |
+              v
+    [ quotas exacts par utilisateur + sport (N//3 easy, 2N//3 − N//3 moderate, reste hard, moins le train) : affectation NumPy ]
+              |                     <-- validation des quotas : appliqués au pli avec ses vrais comptes, comme en soumission
+              v
+    [ submission.csv ]
+
+### B. Pourquoi votre modèle final fait-il mieux que votre première soumission ? (2 points)
+_Nommez votre modèle final et expliquez en deux lignes comment il produit une prédiction. Puis citez deux décisions (variables, modèle, hyperparamètres, validation) et expliquez par quel mécanisme chacune a amélioré le score._
+- Modèle final : la n° 5 (moyenne de 5 modèles + doublons + quotas) ; la n° 6 est la même méthode avec 8 modèles, soumise comme second choix final.
+- Comment il prédit (deux lignes) : chaque modèle compare la séance aux habitudes de la personne et à ses séances voisines dans le temps, et donne 3 probabilités ; on les moyenne.
+  Puis, dans chaque couple personne + sport, on attribue exactement le nombre d'easy, de moderate et de hard qui reste, aux séances les plus probables pour chaque classe.
+- Décision 1 : quotas exacts par utilisateur + sport → mécanisme : les classes sont des tiers exacts calculés sur train + test, donc le nombre de chaque classe restant dans le test est connu ;
+  il ne reste qu'à bien classer les séances à l'intérieur de la personne (PersonStack 0,6195 → 0,6406 ; public 0,61791 (n° 2) → 0,65523 (n° 5)).
+- Décision 2 : choisir deux soumissions finales qui se trompent sur des séances différentes → mécanisme : Kaggle garde le meilleur des deux scores privés ; un second fichier de même valeur
+  moyenne mais différent sur 3,8 % des séances rapporte en moyenne +0,0013 (simulation sur 3 000 « moitiés privées » ; avec la n° 3 : +0,0008).
+
+### C. Une suggestion de l'IA que vous avez vérifiée (1 point)
+_Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou acceptée seulement après vérification. Qu'avez-vous vérifié, et comment ?_
+- Suggestion : ajouter des graines aléatoires (8 modèles au lieu de 5) pour améliorer le modèle.
+- Rejetée / corrigée / acceptée après vérification : corrigée : rejetée comme modèle principal, acceptée seulement comme second choix.
+- Ce qu'on a vérifié, et comment : règle fixée avant de voir les résultats (adoptée seulement si elle ne perd pas en validation) : 0,6462 contre 0,6468, donc pas de gain ;
+  puis simulation du score final « meilleur des deux » : c'est le meilleur second choix (+0,0013), confirmé par deux estimations indépendantes (+0,0008 à +0,0016).
+
+### D. De la prédiction à la recommandation (1 point)
+_L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
+- Comment utiliser le modèle : calculer les variables de chaque séance candidate par rapport aux habitudes de l'utilisateur 4127 en course (et à sa forme récente), prédire P(easy) pour chacune
+  (sans quotas, qui n'ont de sens que pour un ensemble de séances), et recommander la plus forte P(easy).
+- Séance attendue : la (1), 5 km à plat à 9 km/h (plus lente que sa médiane, courte, plate) ; la (2) ajoute 300 m de montée et de la longueur, la (3) est 20 % plus rapide que sa médiane.
+- Ce qui pourrait le rendre faux pour cet utilisateur : le modèle apprend des corrélations, pas des causes (on court lentement quand on est fatigué) ; la cible est sa fréquence cardiaque, que nous ne voyons pas
+  (chaleur, fatigue, maladie) ; sa forme a pu changer ; la classe est relative à son propre historique (un tiers de ses séances), pas une intensité absolue.
+
+### E. Votre contribution personnelle (non noté)
+_En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
+RMYU : modèle Final2, quotas exacts et recopie des doublons, mélange de modèles des soumissions n° 5 et n° 6,
+vérification des pistes (sélection imbriquée, relecture adversariale, fuite démasquée) et choix des deux soumissions finales.
+
+- Scores : validation macro-F1 0,6462 ± 0,0054 (quotas appliqués au pli avec ses vrais comptes ; n° 5 : 0,6468) ; public 0,65396
+
+## Soumission n° 7 : PersonStack HGB 3 graines + Final2 2 graines + doublons + quotas (17h58, code participant à renseigner)
 
 Code participant : à renseigner · Équipe n° : à renseigner · Date : 30/10
 
