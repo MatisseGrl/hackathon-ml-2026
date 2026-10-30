@@ -206,3 +206,10 @@ Il faut toujours l'accord de l'équipe avant de l'envoyer. Et le dépôt GitHub 
 **Claude :** La règle a changé sur `main` : à chaque soumission, il faut aussi une section dans `explanation_sheet.md`, la conversation mot pour mot, et les fichiers de `submissions/` sont maintenant versionnés. J'intègre `main` d'abord, puis j'ajoute tout ça.
 
 **Claude :** Le script a planté à cause d'une erreur de guillemets dans la commande shell. Je vérifie que rien n'a été écrit, puis je repasse par des fichiers intermédiaires.
+
+
+**MatisseGrl :** vite met tu peux me faire la matrice de confusion basé sur la derniere submission de code. dans le log.md stp avec une phrase of error analysis sur mon sub 04 quotas tout de suite
+
+**MatisseGrl :** et tu le poush direct sur le main log la matirce
+
+**Claude :** Pousser direct sur `main` m'est interdit par `AGENTS.md`. Ton accord permet par contre de passer par une PR que je fusionne tout de suite : ça arrive sur `main` en une minute. La matrice y est déjà et ses chiffres collent (F1 et macro 0,6404 recalculés à la main), mais rien ne dit qu'elle correspond à la sub 04. J'ajoute donc cette précision.
