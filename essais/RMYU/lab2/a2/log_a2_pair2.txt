@@ -1,0 +1,19 @@
+[    1s] groupes 193 max 2535
+[   13s] passe 0: 361470 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7791; corr(u, y) pli 0.5470
+[   30s] passe 1: 361228 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7825; corr(u, y) pli 0.5456
+[   51s] passe 2: 361402 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7825; corr(u, y) pli 0.5574
+[   69s] passe 3: 361356 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7760; corr(u, y) pli 0.5394
+[   87s] passe 4: 361448 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7757; corr(u, y) pli 0.5416
+[   91s] sauvé cache_a2_pair2hgb.npz
+[   97s] REF 0.6468 ± 0.0073 plis [0.6519 0.6355 0.6475 0.6426 0.6563]
+[   98s] a2_pair2hgb beta=0.0 0.6468 ± 0.0073 delta +0.0000 plis gagnés 0/5 delta plis [0. 0. 0. 0. 0.]
+[   98s] a2_pair2hgb beta=0.1 0.6472 ± 0.0064 delta +0.0004 plis gagnés 4/5 delta plis [ 0.      0.0018  0.0018  0.0002 -0.0015]
+[   98s] a2_pair2hgb beta=0.2 0.6470 ± 0.0053 delta +0.0002 plis gagnés 3/5 delta plis [-0.0011  0.0018  0.0015  0.0031 -0.0042]
+[   98s] a2_pair2hgb beta=0.3 0.6465 ± 0.0044 delta -0.0003 plis gagnés 2/5 delta plis [-0.0011  0.0029 -0.0002  0.0035 -0.0064]
+[   98s] a2_pair2hgb beta=0.4 0.6466 ± 0.0059 delta -0.0001 plis gagnés 3/5 delta plis [-0.0002  0.0002  0.0011  0.0028 -0.0046]
+[   98s] a2_pair2hgb beta=0.5 0.6462 ± 0.0067 delta -0.0005 plis gagnés 3/5 delta plis [ 0.     -0.0015  0.0009  0.0024 -0.0044]
+[   99s] a2_pair2hgb beta=0.6 0.6463 ± 0.0067 delta -0.0004 plis gagnés 2/5 delta plis [-0.0002 -0.0009  0.0015  0.0009 -0.0035]
+[   99s] a2_pair2hgb beta=0.8 0.6462 ± 0.0063 delta -0.0006 plis gagnés 2/5 delta plis [-0.0002 -0.0011  0.0009  0.0031 -0.0055]
+[   99s] a2_pair2hgb beta=1.0 0.6462 ± 0.0063 delta -0.0006 plis gagnés 2/5 delta plis [-0.0007 -0.0013  0.0013  0.0033 -0.0055]
+[   99s] a2_pair2hgb IMBRIQUÉ 0.6465 ± 0.0056 delta -0.0003 plis gagnés 3/5 delta [-0.0011  0.0018  0.0018  0.0002 -0.0042] betas choisis [0.2, 0.1, 0.1, 0.1, 0.2]
+[   99s] fini
