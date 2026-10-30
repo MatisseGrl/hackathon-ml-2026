@@ -1,5 +1,5 @@
 import sys, os
-os.chdir(r"C:\Users\curie\hk\essais\RMYU")
+os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 sys.path.append("../.."); sys.path.append(".")
 import numpy as np, pandas as pd
 T = pd.read_pickle("lab2/a5/T.pkl")
