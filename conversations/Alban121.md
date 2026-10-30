@@ -108,3 +108,7 @@ Pour le point 4, les « habitudes », ce sont les variables `UserStats`. Pour ch
 Deux points à signaler :
 1. La section n° 3 (RMYU) et la PR #8 de MatisseGrl utilisent `scipy.optimize.linear_sum_assignment` pour les quotas. `scipy` n'est pas dans la liste autorisée (pandas, NumPy, matplotlib, scikit-learn). Il vaut mieux vérifier avec l'organisateur que c'est accepté.
 2. J'ai mis par erreur ton nom comme responsable de la PR #8 de MatisseGrl, puis je l'ai retiré tout de suite.
+
+**Alban121 :** merge on refera les format plus tard car la explanation sheet va surement etre modifie d ici la
+
+**Claude :** PR #9 fusionnée dans `main`. On reprendra le format des anciennes sections plus tard.
