@@ -1,0 +1,32 @@
+groupes 193 taille max 1901 somme n*a 11932852
+pli 0 fini 2s
+pli 1 fini 5s
+pli 2 fini 7s
+pli 3 fini 10s
+pli 4 fini 13s
+REF 0.6468 ± 0.0073 plis [0.6519 0.6355 0.6475 0.6426 0.6563]
+a3_seuil_ex1 beta=0.0 0.6468 ± 0.0073 delta +0.0000 gagnés 0/5 plis [0. 0. 0. 0. 0.]
+a3_seuil_ex1 beta=0.1 0.6466 ± 0.0075 delta -0.0001 gagnés 3/5 plis [-0.0007 -0.0013  0.0002  0.0011  0.    ]
+a3_seuil_ex1 beta=0.2 0.6469 ± 0.0075 delta +0.0001 gagnés 3/5 plis [ 0.0007 -0.0013  0.0004  0.0013 -0.0007]
+a3_seuil_ex1 beta=0.3 0.6470 ± 0.0078 delta +0.0002 gagnés 3/5 plis [-0.0002 -0.0009  0.0007  0.0004  0.0011]
+a3_seuil_ex1 beta=0.4 0.6481 ± 0.0088 delta +0.0013 gagnés 4/5 plis [ 0.0033 -0.002   0.0009  0.002   0.0024]
+a3_seuil_ex1 beta=0.5 0.6482 ± 0.0084 delta +0.0015 gagnés 4/5 plis [ 0.0029  0.0002 -0.0022  0.0029  0.0035]
+a3_seuil_ex1 beta=0.6 0.6477 ± 0.0081 delta +0.0009 gagnés 4/5 plis [ 0.0029  0.     -0.0007  0.0007  0.0018]
+a3_seuil_ex1 beta=0.7 0.6478 ± 0.0081 delta +0.0010 gagnés 4/5 plis [ 0.0029  0.0007  0.0007 -0.0009  0.0018]
+a3_seuil_ex1 beta=0.8 0.6476 ± 0.0081 delta +0.0008 gagnés 4/5 plis [ 0.0018  0.0011  0.0004 -0.0018  0.0024]
+a3_seuil_ex1 beta=0.9 0.6466 ± 0.0084 delta -0.0002 gagnés 2/5 plis [ 0.0015 -0.0002 -0.0015 -0.0026  0.0018]
+a3_seuil_ex1 beta=1.0 0.6460 ± 0.0079 delta -0.0007 gagnés 1/5 plis [ 0.002  -0.0004 -0.0018 -0.0029 -0.0006]
+a3_seuil_ex1 IMBRIQUE 0.6468 ± 0.0091 delta +0.0000 gagnés 2/5 plis [ 0.0029 -0.002  -0.0022 -0.0009  0.0024] betas [0.5, 0.4, 0.5, 0.7, 0.4]
+a3_temoin_ex1 beta=0.0 0.6468 ± 0.0073 delta +0.0000 gagnés 0/5 plis [0. 0. 0. 0. 0.]
+a3_temoin_ex1 beta=0.1 0.6465 ± 0.0073 delta -0.0003 gagnés 0/5 plis [-0.0002 -0.0004 -0.0004  0.     -0.0002]
+a3_temoin_ex1 beta=0.2 0.6469 ± 0.0070 delta +0.0001 gagnés 3/5 plis [-0.0011  0.0007 -0.      0.0004  0.0007]
+a3_temoin_ex1 beta=0.3 0.6470 ± 0.0068 delta +0.0002 gagnés 4/5 plis [-0.0009  0.0011  0.0002  0.0004  0.0002]
+a3_temoin_ex1 beta=0.4 0.6469 ± 0.0070 delta +0.0002 gagnés 4/5 plis [-0.0011  0.0007  0.0002  0.0007  0.0004]
+a3_temoin_ex1 beta=0.5 0.6467 ± 0.0067 delta -0.0000 gagnés 2/5 plis [-0.0015  0.0007 -0.      0.0009 -0.0002]
+a3_temoin_ex1 beta=0.6 0.6470 ± 0.0068 delta +0.0002 gagnés 4/5 plis [-0.0015  0.0007  0.0004  0.0013  0.0002]
+a3_temoin_ex1 beta=0.7 0.6470 ± 0.0069 delta +0.0003 gagnés 4/5 plis [-0.002   0.0007  0.0004  0.0013  0.0009]
+a3_temoin_ex1 beta=0.8 0.6467 ± 0.0067 delta -0.0000 gagnés 3/5 plis [-0.002   0.0007 -0.0004  0.0013  0.0002]
+a3_temoin_ex1 beta=0.9 0.6468 ± 0.0067 delta +0.0000 gagnés 3/5 plis [-0.002   0.0009 -0.0004  0.0013  0.0002]
+a3_temoin_ex1 beta=1.0 0.6469 ± 0.0067 delta +0.0001 gagnés 3/5 plis [-0.0015  0.0009 -0.0007  0.0015  0.0002]
+a3_temoin_ex1 IMBRIQUE 0.6465 ± 0.0068 delta -0.0003 gagnés 3/5 plis [-0.002   0.0007 -0.0007  0.0004  0.0002] betas [0.7, 0.7, 1.0, 0.3, 0.6]
+fini 25s

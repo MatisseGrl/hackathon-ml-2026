@@ -107,3 +107,33 @@ _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?
 - **Matrice de confusion** (hors pli) : les erreurs sont presque toutes d'un seul niveau (easy↔moderate, moderate↔hard) ;
   `moderate` est la plus difficile (F1 0,52 contre 0,68 et 0,69).
 - **Scores** : validation macro-F1 0,6314 ± 0,0055 (plis de `src/validation.py`) ; public 0,65298
+
+## Soumission n° 5 : moyenne de 5 modèles, doublons et quotas par utilisateur + sport (17h37, RMYU)
+- **Changements par rapport à la soumission précédente** (n° 4, PersonStack HGB seul + quotas par utilisateur et sport, public 0,65332) :
+  au lieu d'un seul modèle, on fait la moyenne des probabilités de 5 modèles déjà entraînés, et on recopie le label des séances en double.
+  Les quotas restent ceux de la n° 4 (par utilisateur + sport, même règle d'arrondi).
+- **Ce que « hard » veut dire** : pour chaque personne et chaque sport, ses séances (train + test réunis) sont coupées en 3 tiers exacts
+  selon une mesure des capteurs (très probablement la fréquence cardiaque moyenne). Avec N séances : N//3 easy, 2N//3 − N//3 moderate, le reste hard.
+- **Architecture** (de la donnée brute à la prédiction, étape par étape) :
+  1. **5 modèles** donnent chacun 3 probabilités (easy, moderate, hard) pour chaque séance du test : PersonStack (deux graines aléatoires, 42 et 7),
+     Final2, NeighborStack et Resid2. Tous comparent la séance aux habitudes de la personne (rangs, écarts à sa médiane, vitesse résiduelle)
+     et regardent les labels des séances de la même personne proches dans le temps (sa forme du moment).
+  2. **Moyenne simple** des 5 jeux de probabilités (poids 1/5 chacun, rien à régler).
+  3. **Doublons** : une séance du test identique à une séance du train sur les 16 colonnes reçoit son label
+     (326 séances ; le label du doublon est le bon dans 99,6 % des cas sur le train).
+  4. **Quotas** : pour chaque couple personne + sport, on calcule combien d'easy, de moderate et de hard il reste dans le test
+     (tiers exacts de toutes ses séances, moins ce que le train contient déjà), puis on attribue les classes en respectant exactement ces nombres,
+     en maximisant la somme des log-probabilités (problème d'affectation, résolu en NumPy par échanges successifs).
+- **Pourquoi une moyenne** : les modèles se trompent sur des séances en partie différentes ; la moyenne annule une partie de ces erreurs.
+  Des poids réglés sur une grille semblaient meilleurs (0,6495), mais une fois le biais de sélection retiré (choix sur 4 plis, score sur le 5e)
+  ils ne font pas mieux que des poids égaux (0,6471 contre 0,6468) : on garde le plus simple.
+- **Pourquoi cette règle d'arrondi** : sur le train, c'est la seule des règles testées qui ne contredit aucun groupe
+  (avec les autres, au moins un groupe aurait déjà plus de séances d'une classe dans le train que son tiers).
+- **Comment on a validé** : en soumission, les comptes de chaque classe dans le test sont connus exactement. En validation, on applique donc les quotas
+  au pli de validation avec ses vrais comptes. Trois relecteurs indépendants ont tenté de réfuter ce choix : aucune fuite, CSV reconstruit à l'identique ;
+  ils notent que l'avance sur la n° 3 est plutôt de +0,002 que de +0,003 avec des groupes de la taille du test (Kaggle : +0,0023).
+- **Essayé puis rejeté** (5 pistes testées en parallèle, toutes au niveau du bruit) : vitesse relative au même parcours ; comparateur par paires de séances ;
+  seuils locaux (faux gain dû à une fuite, démasquée) ; lissage entre séances non étiquetées voisines ; corrections ciblées après analyse d'erreur ;
+  autres décodages des quotas. Les erreurs restantes sont des séances incertaines, à la frontière entre deux tiers.
+- **Scores** : validation macro-F1 0,6468 ± 0,0073 (quotas appliqués au pli avec ses comptes réels ; même protocole : n° 3 0,6437, PersonStack seul 0,6406) ;
+  public 0,65523
