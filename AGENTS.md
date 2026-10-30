@@ -49,3 +49,14 @@ git push
 - Avant toute modification, vérifier que le fichier est dans `essais/<code>/` de la personne. Sinon, refuser.
 - Avant toute commande git, vérifier qu'elle est dans la liste autorisée. Sinon, refuser.
 - Expliquer le code produit simplement : chaque membre passe un test individuel et doit pouvoir expliquer le modèle sans écran.
+- **Fiche de commit.** Chaque IA qui commit pour une personne crée (la première fois) ou complète (ensuite) le fichier
+  `essais/<code>/<code>.md` de cette personne, **dans le même commit** que le code. Ce fichier est nommé d'après le code participant
+  (jamais le nom : voir section 3). Une entrée par commit, ajoutée à la fin, sans modifier les entrées existantes :
+  ```markdown
+  ## <date et heure> · <assistant et modèle, ex. Claude Code / Sonnet 5.5>
+  - Ce qui a changé : ...
+  - Pourquoi on pense que ça aide : ...
+  - Score de validation (moyenne ± écart-type) : ...
+  - Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : ... (ou « aucune »)
+  ```
+  Si le commit n'a pas de fiche à jour, l'IA ne commit pas.
