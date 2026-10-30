@@ -82,3 +82,9 @@ Je n'ai modifié aucun fichier. Si tu veux, je peux corriger le README et ajoute
 6. Non, il n'y a jamais eu de vraie règle là-dessus. Il y a seulement « tout modèle doit pouvoir être expliqué sur papier », et une case vide « Explication courte du modèle (pour la fiche papier) » en bas de `LOG.md`. Je peux ajouter une règle (par exemple : pour chaque modèle soumis, l'IA écrit son explication en quelques lignes) et préparer la fiche du meilleur modèle. Dis-moi si tu veux.
 
 À noter : MatisseGrl doit encore ajouter son code dans son `#START`. Je ne le connais pas.
+
+**Alban121 :** 4. Comment ca les habitudes de chaque personne ?
+
+6. Ajoute une regle quand quelqu un fais une submission kaggle, l agent doit remplir le explanation_sheet.md Qui explique clairement l'architecture et les choix qui on ete fait. ensuite merge ce qu on a pour l instant on verra pour le .4 plus tard
+
+**Claude :** J'ajoute la règle et je crée `explanation_sheet.md` sur la branche, puis je fusionne la PR #7.
