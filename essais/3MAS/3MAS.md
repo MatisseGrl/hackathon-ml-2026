@@ -32,3 +32,4 @@
 - Attention : les 0,6344 à 0,6404 de `LOG.md` pour la n° 4 utilisaient les vrais effectifs du pli, donc ne sont pas comparables à ces chiffres.
 - Rejeté (dans le bruit) : quotas par utilisateur au lieu d'utilisateur + sport, arrondi « frac » de RMYU au lieu de « floor », température et moyenne géométrique (l'affectation ne change pas quand on multiplie les log-probabilités).
 - Astuce : lancer deux scripts HistGB en parallèle sans `OMP_NUM_THREADS` les ralentit énormément (40 s → plus de 25 min par pli).
+- Comparaison avec la soumission n° 7 de l'équipe (public 0,65842), refaite avec mes caches (PersonStack HGB 1 graine au lieu de 3, 1 × PersonStack + 0,3 × Final2 42 + 0,3 × Final2 7) : 0,6320 ± 0,0062. Mon mélange gagne sur les 5 plis (+0,0007 / +0,0042 / +0,0007 / +0,0030 / +0,0013, moyenne +0,0022) : petit gain, peut-être en partie absorbé par les 3 graines de la n° 7. 94,1 % des prédictions du test sont identiques à celles de la n° 7.
