@@ -92,3 +92,23 @@ Je n'ai modifié aucun fichier. Si tu veux, je peux corriger le README et ajoute
 **Claude :** PR #7 fusionnée dans `main` (https://github.com/MatisseGrl/hackathon-ml-2026/pull/7). Nouvelle règle : à chaque soumission Kaggle, l'IA ajoute une section dans `explanation_sheet.md` (à la racine). Cette section donne les changements, l'architecture étape par étape, les variables, le modèle et ses paramètres, ce qui a été rejeté et les scores. Le fichier ne contient pour l'instant que le modèle de section : les 3 soumissions déjà faites n'ont pas encore de fiche, je peux les écrire si tu veux.
 
 Pour le point 4, les « habitudes », ce sont les variables `UserStats`. Pour chaque personne et chaque sport, on calcule sa vitesse médiane, sa durée médiane, etc. Ensuite, on compare chaque séance à ces valeurs : « cette course est 15 % plus rapide que d'habitude pour lui ». La question est de savoir sur quelles séances on calcule ces médianes : seulement celles du train, ou aussi celles du test (sans leur réponse, qu'on n'a pas). Ton modèle utilise aussi le test, alors que `LOG.md` dit que l'équipe l'a refusé. On en reparle plus tard comme tu l'as dit.
+
+**Alban121 :** Pour la regle sur la explanation sheet, il faut que l agent la remplisse en completant une fiche comme sur les 2 images. Dis moi si tu n arrive pas bien a lire. Respect rigouresement les questions sur la feuille
+
+(2 photos jointes : la « Fiche d'explication individuelle », questions A à E.)
+
+**Claude :** Je lis bien les deux feuilles (questions A à E). Je recopie le modèle dans `explanation_sheet.md` et j'adapte la règle.
+
+**Claude :** C'est prêt (PR #9 : https://github.com/MatisseGrl/hackathon-ml-2026/pull/9). Je la fusionne dès que tu me donnes ton accord.
+
+- `explanation_sheet.md` contient maintenant un modèle qui reprend la feuille mot pour mot : A (pipeline en boîtes et flèches, avec l'outil de chaque étape et l'endroit de la validation), B (pourquoi le modèle final bat la 1re soumission : deux lignes, puis deux décisions et leur mécanisme), C (suggestion de l'IA vérifiée), D (la séance de récupération pour l'utilisateur 4127) et E (contribution personnelle).
+- `AGENTS.md` : à chaque soumission, l'IA remplit une section A à E, sans sauter ni ajouter de question.
+- RMYU a déjà écrit une section n° 3 dans l'ancien format. Je l'ai gardée telle quelle, je ne réécris pas son travail. Je peux la refaire au format A à E si tu veux.
+
+Deux points à signaler :
+1. La section n° 3 (RMYU) et la PR #8 de MatisseGrl utilisent `scipy.optimize.linear_sum_assignment` pour les quotas. `scipy` n'est pas dans la liste autorisée (pandas, NumPy, matplotlib, scikit-learn). Il vaut mieux vérifier avec l'organisateur que c'est accepté.
+2. J'ai mis par erreur ton nom comme responsable de la PR #8 de MatisseGrl, puis je l'ai retiré tout de suite.
+
+**Alban121 :** merge on refera les format plus tard car la explanation sheet va surement etre modifie d ici la
+
+**Claude :** PR #9 fusionnée dans `main`. On reprendra le format des anciennes sections plus tard.
