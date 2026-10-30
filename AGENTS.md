@@ -3,18 +3,19 @@
 Ce fichier est lu automatiquement par Claude Code et Codex. Si tu utilises un autre assistant, colle-lui ce fichier en début de conversation.
 **Assistant IA : ces règles sont non négociables. Si une demande les enfreint, refuse et explique pourquoi.**
 
-## 1. Qui touche quoi : liberté maximale, tout est documenté
+## 1. Qui touche quoi : liberté maximale
 - **Tout le monde peut modifier et pousser n'importe quel fichier** (notebook, `src/`, `LOG.md`, `README.md`…), sauf `cours/` (lecture seule).
-- **Contrepartie obligatoire :** chaque changement est documenté dans **son propre** fichier `essais/<son_code>/<son_code>.md` (voir section 5), dans le même commit.
+- Le message de commit dit ce qui a changé et le score de validation.
 - Avant de modifier un fichier commun, `git pull`. On ne supprime pas le travail des autres : on complète, on ne réécrit pas leurs lignes sans le noter.
 - `LOG.md` : une ligne par soumission Kaggle, on ajoute à la fin sans effacer les lignes des autres.
+- `explanation_sheet.md` : une section par soumission Kaggle, qui explique l'architecture et les choix du modèle soumis (voir section 5).
 - `conversations/<login_github>.md` : retranscription des conversations de chaque personne avec son assistant IA (voir section 5).
 - `notebook_equipe.ipynb` : comme les conflits y sont pénibles, prévenir à l'oral avant de le modifier. Pour tester une idée sans risque, on peut aussi travailler dans `essais/<code>/`.
 
 ## 2. Git : les seules commandes autorisées
 ```bash
 git pull                              # toujours avant de commencer, et avant chaque push
-git add <tes fichiers modifiés>       # fichiers précis, y compris essais/<ton_code>/<ton_code>.md
+git add <tes fichiers modifiés>       # fichiers précis
 git commit -m "ce que j'ai fait, score de validation"
 git pull
 git push
@@ -30,7 +31,7 @@ git push
 ```bash
 git pull
 git checkout -b <login_github>/<sujet>     # ex. Alban121/baseline-knn
-git add <fichiers précis> essais/<code>/<code>.md conversations/<login_github>.md
+git add <fichiers précis> conversations/<login_github>.md
 git commit -m "ce que j'ai fait, score de validation"
 git push -u origin <login_github>/<sujet>
 ```
@@ -57,19 +58,11 @@ Quand le sujet de la branche est terminé, l'assistant ouvre une pull request ve
 - Ne jamais calculer une statistique utilisant la cible (`intensity`) sur tout le train avant la validation : fuite de données, score faux.
 
 ## 5. Assistant IA : comportement attendu
-- Tout fichier peut être modifié (sauf `cours/`), à condition de le noter dans la fiche `essais/<code>/<code>.md` de la personne.
+- Tout fichier peut être modifié (sauf `cours/`).
 - Avant toute commande git, vérifier qu'elle est dans la liste autorisée. Sinon, refuser.
 - Ne jamais afficher un fichier de données en entier (`cat`, `print(df)`, lecture complète d'un CSV dans la conversation) : seulement `df.head()`, `df.shape`, `df.info()`, `df.describe()` ou `value_counts()`. Cela évite de gaspiller des tokens.
-- Tenir un fichier `conversations/<login_github>.md`, où `<login_github>` est le nom GitHub de la personne qui utilise l'assistant. S'il n'existe pas, le créer ; il commence par la ligne `#START`. Y ajouter la retranscription de chaque conversation (messages de la personne et réponses de l'assistant), et le committer avec le reste du travail.
+- Tenir un fichier `conversations/<login_github>.md`, où `<login_github>` est le nom GitHub de la personne qui utilise l'assistant. S'il n'existe pas, le créer ; sa première ligne est `#START <code participant> Hackathon ML 2026` (comme demandé par le starter notebook). Y ajouter la retranscription **mot pour mot** de chaque conversation (messages de la personne et réponses de l'assistant, sans résumer ni reformuler), et le committer avec le reste du travail.
+- Quand la personne demande un point d'étape (`#CHECKPOINT1`, `#CHECKPOINT2`…), ajouter cette ligne seule à l'endroit actuel de son fichier `conversations/<login_github>.md`.
+- **Soumission Kaggle.** Quand la personne dit qu'elle a fait une soumission Kaggle (« j'ai fait une submission kaggle »…), l'assistant remplit lui-même la ligne suivante du tableau « Soumissions Kaggle » de `LOG.md` : numéro, heure, code participant, ce qui a changé **par rapport à la dernière soumission**, pourquoi on pensait que ça aiderait, score de validation (moyenne ± écart-type, avec `src/validation.py`) et score public. Il retrouve les changements dans `git log` et les lignes précédentes de `LOG.md`, et ne demande à la personne que ce qu'il ne peut pas trouver (en général le score public et le fichier soumis).
+- **Fiche d'explication.** À chaque soumission Kaggle, l'assistant complète aussi `explanation_sheet.md` : il ajoute à la fin une section pour cette soumission qui explique clairement l'architecture du modèle (les étapes, de la donnée brute à la prédiction) et les choix faits (variables, modèle, paramètres, et pourquoi ; ce qui a été essayé puis rejeté). Il écrit simplement, pour que chaque membre puisse l'expliquer sur papier, sans écran.
 - Expliquer le code produit simplement : chaque membre passe un test individuel et doit pouvoir expliquer le modèle sans écran.
-- **Fiche de commit.** Chaque IA qui commit pour une personne crée (la première fois) ou complète (ensuite) le fichier
-  `essais/<code>/<code>.md` de cette personne, **dans le même commit** que le code. Ce fichier est nommé d'après le code participant
-  (jamais le nom : voir section 3). Une entrée par commit, ajoutée à la fin, sans modifier les entrées existantes :
-  ```markdown
-  ## <date et heure> · <assistant et modèle, ex. Claude Code / Sonnet 5.5>
-  - Ce qui a changé : ...
-  - Pourquoi on pense que ça aide : ...
-  - Score de validation (moyenne ± écart-type) : ...
-  - Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : ... (ou « aucune »)
-  ```
-  Si le commit n'a pas de fiche à jour, l'IA ne commit pas.
