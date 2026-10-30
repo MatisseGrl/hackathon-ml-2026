@@ -339,3 +339,8 @@ _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?
 
 
 - Scores : validation macro-F1 0,6505 ± 0,0064 (effectifs réels du fold, borne haute) ; public 0,65842
+
+## Soumissions n° 8 et n° 9 : mêmes réponses A à E que la n° 7, deux changements (18h07 et 18h09, code participant à renseigner)
+- n° 8 (`sub_07_more_seeds.csv`) : 5 graines de Final2 au lieu de 2 ; le mécanisme est la réduction de la variance. Public 0,65962.
+- n° 9 (`sub_08_seeds_neighbor.csv`) : n° 8 + NeighborStack, poids 0,15. Public 0,66032.
+- Validation complète non calculée pour ces deux fichiers, faute de temps. L'écart entre eux est dans le bruit.
