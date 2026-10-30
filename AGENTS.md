@@ -9,6 +9,7 @@ Ce fichier est lu automatiquement par Claude Code et Codex. Si tu utilises un au
 - `cours/` : les notebooks et données du cours, **en lecture seule**. Pour réutiliser un exemple, le copier dans son dossier d'essai.
 - `LOG.md` : on peut **ajouter une ligne** à la fin d'un tableau. Ne jamais modifier ni supprimer une ligne existante.
 - Pour partir d'un fichier commun : le **copier** dans son dossier (`essais/<code>/mon_essai.ipynb`) puis travailler sur la copie.
+- `conversations/<login_github>.md` : chaque personne y écrit (ou y fait écrire par son assistant) la retranscription de ses conversations avec l'IA (voir section 5).
 
 ## 2. Git : les seules commandes autorisées
 ```bash
@@ -22,8 +23,19 @@ git push
 - `git push --force`, `git push -f`, `git push --force-with-lease`
 - `git add .`, `git add -A`, `git commit -a`
 - `git reset --hard`, `git checkout -- <fichier>`, `git restore <fichier>`, `git clean`, `git rebase`, `git stash` sur des fichiers des autres
-- créer, supprimer ou renommer des branches ; tout travail se fait sur `main`
+- pour un humain : créer, supprimer ou renommer des branches ; tout travail se fait sur `main`
+- pour un assistant IA : pousser directement sur `main`, ou fusionner (merge) soi-même sa branche
 - résoudre soi-même un conflit sur un fichier qui n'est pas dans son dossier
+
+**Assistant IA : une branche par sujet.**
+```bash
+git pull
+git checkout -b <login_github>/<sujet>     # ex. Alban121/baseline-knn
+git add essais/<code>/ conversations/<login_github>.md
+git commit -m "ce que j'ai fait, score de validation"
+git push -u origin <login_github>/<sujet>
+```
+Quand le sujet de la branche est terminé, l'assistant **propose** de la fusionner (pull request vers `main`). C'est un humain de l'équipe qui accepte la fusion.
 
 **Si `git pull` ou `git push` affiche une erreur ou un conflit : ne rien forcer, ne rien supprimer, ne rien « réparer ». Appeler le responsable du dépôt.**
 
@@ -48,4 +60,6 @@ git push
 ## 5. Assistant IA : comportement attendu
 - Avant toute modification, vérifier que le fichier est dans `essais/<code>/` de la personne. Sinon, refuser.
 - Avant toute commande git, vérifier qu'elle est dans la liste autorisée. Sinon, refuser.
+- Ne jamais afficher un fichier de données en entier (`cat`, `print(df)`, lecture complète d'un CSV dans la conversation) : seulement `df.head()`, `df.shape`, `df.info()`, `df.describe()` ou `value_counts()`. Cela évite de gaspiller des tokens.
+- Tenir un fichier `conversations/<login_github>.md`, où `<login_github>` est le nom GitHub de la personne qui utilise l'assistant. S'il n'existe pas, le créer ; il commence par la ligne `#START`. Y ajouter la retranscription de chaque conversation (messages de la personne et réponses de l'assistant), et le committer avec le reste du travail.
 - Expliquer le code produit simplement : chaque membre passe un test individuel et doit pouvoir expliquer le modèle sans écran.
