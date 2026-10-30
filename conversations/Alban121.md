@@ -98,3 +98,13 @@ Pour le point 4, les « habitudes », ce sont les variables `UserStats`. Pour ch
 (2 photos jointes : la « Fiche d'explication individuelle », questions A à E.)
 
 **Claude :** Je lis bien les deux feuilles (questions A à E). Je recopie le modèle dans `explanation_sheet.md` et j'adapte la règle.
+
+**Claude :** C'est prêt (PR #9 : https://github.com/MatisseGrl/hackathon-ml-2026/pull/9). Je la fusionne dès que tu me donnes ton accord.
+
+- `explanation_sheet.md` contient maintenant un modèle qui reprend la feuille mot pour mot : A (pipeline en boîtes et flèches, avec l'outil de chaque étape et l'endroit de la validation), B (pourquoi le modèle final bat la 1re soumission : deux lignes, puis deux décisions et leur mécanisme), C (suggestion de l'IA vérifiée), D (la séance de récupération pour l'utilisateur 4127) et E (contribution personnelle).
+- `AGENTS.md` : à chaque soumission, l'IA remplit une section A à E, sans sauter ni ajouter de question.
+- RMYU a déjà écrit une section n° 3 dans l'ancien format. Je l'ai gardée telle quelle, je ne réécris pas son travail. Je peux la refaire au format A à E si tu veux.
+
+Deux points à signaler :
+1. La section n° 3 (RMYU) et la PR #8 de MatisseGrl utilisent `scipy.optimize.linear_sum_assignment` pour les quotas. `scipy` n'est pas dans la liste autorisée (pandas, NumPy, matplotlib, scikit-learn). Il vaut mieux vérifier avec l'organisateur que c'est accepté.
+2. J'ai mis par erreur ton nom comme responsable de la PR #8 de MatisseGrl, puis je l'ai retiré tout de suite.
