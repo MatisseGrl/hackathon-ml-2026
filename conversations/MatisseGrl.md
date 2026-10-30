@@ -19,3 +19,9 @@
 **MatisseGrl :** retire la règle du code participant pour pousser, puis pousse tout sur main.
 
 **Claude :** fiche de commit retirée de `AGENTS.md`. Poussé avant la fin de la revalidation avec `evaluate`, ce qui est signalé dans `LOG.md`.
+
+## 2026-10-30 : push des soumissions (Claude Code) - résumé
+
+**MatisseGrl :** push toutes les submissions sur le main.
+
+**Claude :** les 4 fichiers de soumission locaux sont ajoutés dans `submissions/` et la règle du `.gitignore` qui les excluait est retirée. Passage par une branche et une pull request, fusionnée avec l'accord de MatisseGrl.
