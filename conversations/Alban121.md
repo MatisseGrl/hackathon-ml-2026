@@ -33,3 +33,11 @@
 **Alban121 :** 3MAS
 
 **Claude :** Fiche `essais/3MAS/3MAS.md` créée, PR #1 fusionnée.
+
+## 2026-10-30 : viser 0,6 de macro-F1 (Claude, projet claude.ai, branche `Alban121/macro-f1-0.6`)
+
+**Alban121 :** ouvre un fil pour essayer de faire un code qui aurait 0,6 de macro F1 score dans un premier temps. Utilise ce que tu veux et fais ca dans une branche a mon nom
+
+**Claude :** Modèle `essais/3MAS/modele_06.py` : 0,6007 ± 0,0053 avec `src/validation.py` (base de l'équipe : 0,568). Trois idées : habitudes de chaque personne calculées sur train + test (sans la cible), résidu de vitesse « plus rapide que prévu pour ce parcours » par utilisateur-sport, et `user_id` donné aux arbres (HistGB + ExtraTrees moyennés). Le gros du gain vient de `user_id` (+0,02). CSV de test écrit dans `essais/3MAS/`, non soumis sur Kaggle. Pull request ouverte, fusion après ton accord.
+
+**Claude :** (en fusionnant `main`) un coéquipier a déjà poussé `PersonStack` (`src/person_stack.py`) à 0,6207 ± 0,0028, meilleur que ce modèle (0,6007). Conflit dans `LOG.md` résolu en gardant les deux séries de lignes. À noter : l'équipe a rejeté le calcul des habitudes sur les lignes du test, que ce modèle utilise.

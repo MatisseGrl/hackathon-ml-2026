@@ -31,6 +31,7 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 | 16h25 |     | Vote | **`PersonStack`** : moyenne + poids 1,1 sur `moderate` | toutes | 0,6207 ± 0,0028 | Confirmé sur `src/person_stack.py` avec `evaluate`. Poids choisi sur ces folds, donc un peu optimiste |
 | 16h20 |     | Rejeté | Quotas d'un tiers par groupe | | 0,6037 | Moins bon que sans quotas |
 | 16h20 |     | Rejeté | `UserStats` ajusté aussi sur les lignes du test | | 0,6146 ± 0,0049 | +0,0006 seulement, c'est du bruit, et on ne prétraite pas sur le test |
+| 16h30 | 3MAS | Ensemble | Vote soft : HistGB (63 feuilles, lr 0,03, user_id catégoriel) + ExtraTrees (500 arbres, user_id one-hot) | UserStats sur train+test (sans cible) + résidus de vitesse par utilisateur-sport + user_id | 0,601 ± 0,005 | `essais/3MAS/modele_06.py`. user_id catégoriel seul : 0,568 → 0,589 |
 
 ## Qu'est-ce que « difficile » veut dire ?
 _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pour **cette personne** :_
