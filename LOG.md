@@ -67,7 +67,7 @@ vrai easy            5178           1833             518
 vrai moderate        1728           4085            1790
 vrai hard             623           1685            5288
 ```
-`PersonStack` HGB seul + quotas, prédictions hors fold, avec les effectifs réels de chaque fold.
+(Soumission n° 4, `sub_04_quotas.csv` : `PersonStack` HGB seul + quotas, prédictions hors fold, avec les effectifs réels de chaque fold, macro-F1 0,6404.)
 
 ```
                  prédit easy   prédit moderate   prédit hard
@@ -77,7 +77,7 @@ vrai hard             619            1736           5241
 ```
 (Soumission n° 3 : mélange PersonStack + Final2, doublons et quotas inclus, 22 728 séances hors pli, `essais/RMYU/confusion.py`.)
 
-**Analyse d'erreur (au moins une phrase)** : (`PersonStack` HGB + quotas, validation croisée) la classe `moderate` reste la plus mal prédite (F1 0,537 contre 0,688 pour `easy` et 0,696 pour `hard`) : les erreurs se font surtout entre classes voisines (3 518 `moderate` mal classées, 3 518 aussi prédites à tort `moderate`, contre 1 141 confusions directes `easy`/`hard`), car une séance moyenne se situe près des deux frontières du découpage de la personne.
+**Analyse d'erreur (au moins une phrase)** : (soumission n° 4, `PersonStack` HGB + quotas, validation croisée) la classe `moderate` reste la plus mal prédite (F1 0,537 contre 0,688 pour `easy` et 0,696 pour `hard`) : les erreurs se font surtout entre classes voisines (3 518 `moderate` mal classées, 3 518 aussi prédites à tort `moderate`, contre 1 141 confusions directes `easy`/`hard`), car une séance moyenne se situe près des deux frontières du découpage de la personne.
 
 (RMYU, soumission n° 3) `moderate` reste la classe la plus confondue (F1 0,52 contre 0,68 pour `easy` et 0,69 pour `hard`) : 1 857 séances moderate sont prédites easy et 1 799 hard, alors que easy et hard ne se confondent presque pas entre eux (510 et 619). Les erreurs sont donc presque toutes d'un seul niveau, à la frontière des tiers de la personne, là où une petite différence de fréquence cardiaque invisible dans nos variables fait changer la classe.
 
