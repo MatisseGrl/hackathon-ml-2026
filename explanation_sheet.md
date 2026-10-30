@@ -109,31 +109,65 @@ _En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?
 - **Scores** : validation macro-F1 0,6314 ± 0,0055 (plis de `src/validation.py`) ; public 0,65298
 
 ## Soumission n° 5 : moyenne de 5 modèles, doublons et quotas par utilisateur + sport (17h37, RMYU)
-- **Changements par rapport à la soumission précédente** (n° 4, PersonStack HGB seul + quotas par utilisateur et sport, public 0,65332) :
-  au lieu d'un seul modèle, on fait la moyenne des probabilités de 5 modèles déjà entraînés, et on recopie le label des séances en double.
-  Les quotas restent ceux de la n° 4 (par utilisateur + sport, même règle d'arrondi).
-- **Ce que « hard » veut dire** : pour chaque personne et chaque sport, ses séances (train + test réunis) sont coupées en 3 tiers exacts
-  selon une mesure des capteurs (très probablement la fréquence cardiaque moyenne). Avec N séances : N//3 easy, 2N//3 − N//3 moderate, le reste hard.
-- **Architecture** (de la donnée brute à la prédiction, étape par étape) :
-  1. **5 modèles** donnent chacun 3 probabilités (easy, moderate, hard) pour chaque séance du test : PersonStack (deux graines aléatoires, 42 et 7),
-     Final2, NeighborStack et Resid2. Tous comparent la séance aux habitudes de la personne (rangs, écarts à sa médiane, vitesse résiduelle)
-     et regardent les labels des séances de la même personne proches dans le temps (sa forme du moment).
-  2. **Moyenne simple** des 5 jeux de probabilités (poids 1/5 chacun, rien à régler).
-  3. **Doublons** : une séance du test identique à une séance du train sur les 16 colonnes reçoit son label
-     (326 séances ; le label du doublon est le bon dans 99,6 % des cas sur le train).
-  4. **Quotas** : pour chaque couple personne + sport, on calcule combien d'easy, de moderate et de hard il reste dans le test
-     (tiers exacts de toutes ses séances, moins ce que le train contient déjà), puis on attribue les classes en respectant exactement ces nombres,
-     en maximisant la somme des log-probabilités (problème d'affectation, résolu en NumPy par échanges successifs).
-- **Pourquoi une moyenne** : les modèles se trompent sur des séances en partie différentes ; la moyenne annule une partie de ces erreurs.
-  Des poids réglés sur une grille semblaient meilleurs (0,6495), mais une fois le biais de sélection retiré (choix sur 4 plis, score sur le 5e)
-  ils ne font pas mieux que des poids égaux (0,6471 contre 0,6468) : on garde le plus simple.
-- **Pourquoi cette règle d'arrondi** : sur le train, c'est la seule des règles testées qui ne contredit aucun groupe
-  (avec les autres, au moins un groupe aurait déjà plus de séances d'une classe dans le train que son tiers).
-- **Comment on a validé** : en soumission, les comptes de chaque classe dans le test sont connus exactement. En validation, on applique donc les quotas
-  au pli de validation avec ses vrais comptes. Trois relecteurs indépendants ont tenté de réfuter ce choix : aucune fuite, CSV reconstruit à l'identique ;
-  ils notent que l'avance sur la n° 3 est plutôt de +0,002 que de +0,003 avec des groupes de la taille du test (Kaggle : +0,0023).
-- **Essayé puis rejeté** (5 pistes testées en parallèle, toutes au niveau du bruit) : vitesse relative au même parcours ; comparateur par paires de séances ;
-  seuils locaux (faux gain dû à une fuite, démasquée) ; lissage entre séances non étiquetées voisines ; corrections ciblées après analyse d'erreur ;
-  autres décodages des quotas. Les erreurs restantes sont des séances incertaines, à la frontière entre deux tiers.
-- **Scores** : validation macro-F1 0,6468 ± 0,0073 (quotas appliqués au pli avec ses comptes réels ; même protocole : n° 3 0,6437, PersonStack seul 0,6406) ;
-  public 0,65523
+Code participant : RMYU · Équipe n° : à renseigner · Date : 30/10
+
+### A. Dessinez le pipeline final de votre équipe (2 points)
+_Du CSV brut jusqu'à submission.csv : chaque étape dans une boîte, reliées par des flèches. Écrivez dans chaque boîte ce qui est fait et avec quel outil (ex. « one-hot sur sport », « RandomForest, max_depth=12 »). Indiquez où se fait la validation._
+
+    [ train.csv / test.csv ]
+              |
+              v
+    [ nettoyage (altitudes aberrantes) + variables relatives à la personne : rang et écart à sa médiane
+      par utilisateur + sport (vitesse, distance, durée, dénivelé), vitesse résiduelle (pandas, sans la cible) ]
+              |
+              v
+    [ 5 modèles HistGradientBoosting empilés en 2 étages : PersonStack (graines 42 et 7), Final2, NeighborStack, Resid2.
+      Étage 1 : niveau attendu ; étage 2 : + labels des séances voisines de la personne (même jour, même mois, ±k mois),
+      calculés hors pli pour ne pas voir sa propre cible ]   <-- validation : src/validation.py, 5 folds stratifiés, graine 42, macro-F1
+              |
+              v
+    [ moyenne simple des probabilités des 5 modèles (poids 1/5) ]
+              |
+              v
+    [ doublons : séance du test identique à une séance du train sur 16 colonnes → on recopie son label (326 séances) ]
+              |
+              v
+    [ quotas : par utilisateur + sport, tiers exacts sur train + test (N//3 easy, 2N//3 − N//3 moderate, le reste hard)
+      moins ce que le train contient → affectation qui maximise la somme des log-probabilités (NumPy) ]
+              |                     <-- validation des quotas : appliqués au pli avec ses vrais comptes, comme en soumission
+              v
+    [ submission.csv ]
+
+### B. Pourquoi votre modèle final fait-il mieux que votre première soumission ? (2 points)
+_Nommez votre modèle final et expliquez en deux lignes comment il produit une prédiction. Puis citez deux décisions (variables, modèle, hyperparamètres, validation) et expliquez par quel mécanisme chacune a amélioré le score._
+- Modèle final : moyenne de 5 modèles HistGradientBoosting empilés (PersonStack ×2, Final2, NeighborStack, Resid2) + doublons + quotas par utilisateur et sport.
+- Comment il prédit (deux lignes) : chaque modèle compare la séance aux habitudes de la personne et à ses séances voisines dans le temps, et donne 3 probabilités ; on les moyenne.
+  Puis, dans chaque couple personne + sport, on attribue exactement le nombre d'easy, de moderate et de hard qui reste, aux séances les plus probables pour chaque classe.
+- Décision 1 : variables relatives à la personne + labels des séances voisines dans le temps (empilement) → mécanisme : « hard » est un tiers de la fréquence cardiaque **de cette personne**,
+  qui dérive avec sa forme du moment ; on compare donc à ses habitudes et à ses séances proches (validation 0,568 → 0,6195).
+- Décision 2 : quotas exacts par utilisateur + sport → mécanisme : les classes sont des tiers exacts calculés sur train + test, donc on connaît le nombre de chaque classe restant dans le test ;
+  il ne reste qu'à bien classer les séances à l'intérieur de la personne (PersonStack 0,6195 → 0,6406 avec les comptes réels ; public 0,61791 (n° 2) → 0,65523 (n° 5)).
+
+### C. Une suggestion de l'IA que vous avez vérifiée (1 point)
+_Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou acceptée seulement après vérification. Qu'avez-vous vérifié, et comment ?_
+- Suggestion : situer chaque séance par rapport aux « seuils locaux » estimés à partir des scores des séances étiquetées proches dans le temps ; la validation annonçait +0,010 (0,6468 → 0,6568, 5 plis sur 5).
+- Rejetée / corrigée / acceptée après vérification : rejetée.
+- Ce qu'on a vérifié, et comment : le gain venait uniquement des voisines du même mois. En les retirant, le gain tombait à +0,0000. Cause : le score hors pli d'une voisine vient d'un modèle entraîné
+  avec le pli évalué, dont les variables de contexte contiennent le label qu'on cherche à prédire. Au test, ce canal n'existe pas : c'était une fuite. De même, des poids de mélange réglés (0,6495) ne faisaient
+  pas mieux que des poids égaux une fois choisis sur 4 plis et notés sur le 5e (0,6471 contre 0,6468) : on a gardé les poids égaux.
+
+### D. De la prédiction à la recommandation (1 point)
+_L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
+- Comment utiliser le modèle : construire les variables de chaque séance candidate comme pour le test (vitesse, distance et dénivelé comparés aux habitudes de l'utilisateur 4127 en course, date du jour pour sa forme du moment),
+  prédire P(easy) pour chacune (sans quotas, qui n'ont de sens que pour un ensemble de séances), et recommander celle qui a la plus forte P(easy).
+- Séance attendue : la (1), 5 km à plat à 9 km/h : plus lente que sa médiane (−10 %), courte, sans dénivelé. La (2) ajoute 300 m de montée et de la longueur (plutôt moderate ou hard), la (3) est 20 % plus rapide que sa médiane (plutôt hard).
+- Ce qui pourrait le rendre faux pour cet utilisateur : le modèle apprend des corrélations et non des causes (on court lentement quand on est fatigué, donc une séance lente peut être notée « hard » en fréquence cardiaque) ;
+  la cible est sa fréquence cardiaque, que nous ne voyons pas (chaleur, fatigue, maladie) ; sa forme du moment peut avoir changé depuis ses dernières séances étiquetées ; enfin, la classe est relative à son propre historique
+  (un tiers de ses séances), pas une intensité absolue.
+
+### E. Votre contribution personnelle (non noté)
+_En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
+RMYU : modèle Final2 (2 étages sans fuite), découverte des tiers exacts et des doublons (quotas, recopie), mélange de 5 modèles de la soumission n° 5,
+et vérification des pistes par sélection imbriquée et relecture adversariale (5 pistes rejetées, dont une fuite démasquée).
+
+- Scores : validation macro-F1 0,6468 ± 0,0073 (quotas appliqués au pli avec ses vrais comptes ; même protocole : n° 3 0,6437, PersonStack seul 0,6406) ; public 0,65523
