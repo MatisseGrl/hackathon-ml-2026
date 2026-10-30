@@ -14,6 +14,7 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 |---|-------|------------|-----------------|-------------------------------------|--------------------------|--------------|
 | 1 |       |            | HistGradientBoosting (300 itérations, lr 0,05) + `UserStats` : variables relatives à l'utilisateur et au sport (ratio à sa médiane, écart-type, rang) | « Difficile » est mesuré par personne (~1/3 de chaque classe par utilisateur) : comparer la séance aux habitudes de la personne doit battre la vitesse brute | 0,568 ± 0,008 | |
 | 2 |       |            | `NeighborStack` : 2e étage HistGB qui ajoute les résidus et les niveaux des séances voisines de la même personne (même mois, semaine, heure, fenêtres ±1 et ±3 mois) | À vitesse égale, la dureté dépend de la forme du moment, que les séances proches de la personne révèlent | 0,6055 ± 0,0071 | 0,61791 |
+| 3 | 17h00 |            | Fichier `sub_04_quotas.csv` : `PersonStack` HGB seul (`use_trees=False`) + quotas par utilisateur et sport (`src/quotas.py`, méthode hongroise sur les log-probabilités) | Chaque couple utilisateur + sport est découpé en trois parts exactes sur train + test : les labels du train donnent le nombre de séances de chaque classe restant dans le test | 0,6344 ± 0,0026 (erreur d'arrondi simulée) à 0,6404 ± 0,0038 (effectifs réels du fold) ; mêmes folds, script séparé | 0,65332 |
 
 ## Expériences en validation (au moins 3 familles de modèles)
 
@@ -32,6 +33,14 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 | 16h20 |     | Rejeté | Quotas d'un tiers par groupe | | 0,6037 | Moins bon que sans quotas |
 | 16h20 |     | Rejeté | `UserStats` ajusté aussi sur les lignes du test | | 0,6146 ± 0,0049 | +0,0006 seulement, c'est du bruit, et on ne prétraite pas sur le test |
 | 16h30 | 3MAS | Ensemble | Vote soft : HistGB (63 feuilles, lr 0,03, user_id catégoriel) + ExtraTrees (500 arbres, user_id one-hot) | UserStats sur train+test (sans cible) + résidus de vitesse par utilisateur-sport + user_id | 0,601 ± 0,005 | `essais/3MAS/modele_06.py`. user_id catégoriel seul : 0,568 → 0,589 |
+| 16h50 |     | Empilement + quotas | **`PersonStack` HGB seul + quotas** | toutes | 0,6404 ± 0,0038 | Effectifs réels du fold (borne haute). Avec une erreur simulée d'une séance dans 2 groupes sur 3 : 0,6344 ± 0,0026. Soumis |
+| 16h50 |     | Vote + quotas | Moyenne HGB + ExtraTrees + quotas | toutes | 0,6406 ± 0,0053 | Pas mieux que le HGB seul, qui est plus simple |
+| 16h50 |     | Arbres + quotas | HGB sur UserStats seul + quotas | UserStats | 0,5926 ± 0,0049 | L'empilement reste nécessaire |
+| 16h55 |     | Rejeté | HGB + quotas, variables physiques (puissance, VO2, saison, heure) | + physique | 0,6423 ± 0,0061 | Dans le bruit |
+| 16h55 |     | Rejeté | HGB + quotas, autres réglages (7 ou 31 feuilles, lr 0,015) | toutes | 0,6399 à 0,6416 | Dans le bruit |
+| 16h55 |     | Rejeté | Ordinal (2 classifieurs binaires) + quotas | toutes | 0,638 ± 0,0038 | Moins bon |
+| 16h50 |     | Rejeté | Régression du niveau, coupe par quotas (erreur simulée) | toutes | 0,6251 ± 0,0058 | Moins bon que la méthode hongroise (0,6344) |
+| 16h50 |     | Rejeté | 20 découpages internes au lieu de 5, HGB + quotas | toutes | 0,6377 ± 0,0063 | Pas de gain |
 
 ## Qu'est-ce que « difficile » veut dire ?
 _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pour **cette personne** :_
@@ -39,18 +48,20 @@ _Hypothèses de l'équipe sur ce qui rend une séance easy / moderate / hard pou
 - Chaque utilisateur a environ 1/3 de chaque classe (écart-type des parts : 0,04) : la cible est un niveau relatif à la personne, pas une vitesse absolue.
 - Les variables comptent donc relativement aux habitudes de l'utilisateur dans le même sport (ratio à la médiane, écart-type, rang).
 - Gain mesuré : HistGB avec colonnes brutes 0,525, avec variables relatives 0,558, avec rang et écart-type calculés dans chaque fold 0,568.
+- Le découpage en trois est exact par couple utilisateur + sport, sur train + test : parts de classes dispersées à 0,025, contre 0,048 au hasard et 0,024 attendu pour des terciles exacts vus à 75 %. Répartition déduite pour N séances : easy = N // 3, moderate = 2N // 3 - N // 3, hard = N - 2N // 3.
 
 ## Gate 2 : matrice de confusion et analyse d'erreur
 _Coller la matrice de confusion (validation croisée, prédictions hors fold) :_
 
 ```
                  prédit easy   prédit moderate   prédit hard
-vrai easy
-vrai moderate
-vrai hard
+vrai easy            5178           1833             518
+vrai moderate        1728           4085            1790
+vrai hard             623           1685            5288
 ```
+`PersonStack` HGB seul + quotas, prédictions hors fold, avec les effectifs réels de chaque fold.
 
-**Analyse d'erreur (au moins une phrase)** : (HistGB, validation croisée) la classe `moderate` est la plus mal prédite (F1 0,46 contre 0,63 pour `easy` et 0,62 pour `hard`) : les séances moyennes se confondent avec les deux extrêmes, car la frontière entre niveaux est floue autour des habitudes de la personne.
+**Analyse d'erreur (au moins une phrase)** : (`PersonStack` HGB + quotas, validation croisée) la classe `moderate` reste la plus mal prédite (F1 0,537 contre 0,688 pour `easy` et 0,696 pour `hard`) : les erreurs se font surtout entre classes voisines (3 518 `moderate` mal classées, 3 518 aussi prédites à tort `moderate`, contre 1 141 confusions directes `easy`/`hard`), car une séance moyenne se situe près des deux frontières du découpage de la personne.
 
 ## Indices
 - Indice 1 (16h20) : comparer une séance à ce que la personne fait d'habitude dans ce sport. Déjà exploité par `UserStats` et `PersonStack`, pas de gain à attendre.

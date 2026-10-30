@@ -119,8 +119,9 @@ def _person(ref, level, query):
 
 
 class PersonStack(BaseEstimator):
-    def __init__(self, moderate_weight=1.1, random_state=42):
+    def __init__(self, moderate_weight=1.1, use_trees=True, random_state=42):
         self.moderate_weight = moderate_weight
+        self.use_trees = use_trees      # False : HGB seul, plus simple à expliquer
         self.random_state = random_state
 
     def _first_model(self):
@@ -159,9 +160,10 @@ class PersonStack(BaseEstimator):
         self.columns_ = list(T.columns)
         self.hgb_ = HistGradientBoostingClassifier(max_iter=500, learning_rate=0.03, max_leaf_nodes=15, min_samples_leaf=40,
                                                    l2_regularization=5.0, random_state=self.random_state).fit(T, y)
-        self.imputer_ = SimpleImputer(strategy="median").fit(T)
-        self.trees_ = ExtraTreesClassifier(n_estimators=400, min_samples_leaf=3, max_features=0.3, n_jobs=-1,
-                                           random_state=self.random_state).fit(self.imputer_.transform(T), y)
+        if self.use_trees:
+            self.imputer_ = SimpleImputer(strategy="median").fit(T)
+            self.trees_ = ExtraTreesClassifier(n_estimators=400, min_samples_leaf=3, max_features=0.3, n_jobs=-1,
+                                               random_state=self.random_state).fit(self.imputer_.transform(T), y)
         self.classes_ = self.hgb_.classes_
         return self
 
@@ -175,6 +177,8 @@ class PersonStack(BaseEstimator):
 
     def predict_proba(self, X):
         T = self._features(X)
+        if not self.use_trees:
+            return self.hgb_.predict_proba(T)
         return (self.hgb_.predict_proba(T) + self.trees_.predict_proba(self.imputer_.transform(T))) / 2
 
     def predict(self, X):
