@@ -17,3 +17,9 @@
 - Pourquoi on pense que ça aide : on ajoute au 2e étage de PersonStack les résidus de vitesse de `modele_06.py` (appris sur le train seulement) et `user_id` en catégorie ; HistGB plus régularisé (min_samples_leaf 80, l2 10) ; 5 graines moyennées pour réduire la variance.
 - Score de validation (moyenne ± écart-type) : 0,6221 ± 0,0021 (PersonStack : 0,6207 ± 0,0028). Étapes sur les mêmes folds : PersonStack 0,618 ; + user_id seul 0,617 ; + résidus 0,620 ; 2e étage régularisé 0,621 ; 5 graines 0,622.
 - Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : gain dans le bruit, dit tel quel. Rejetées : HistGB plus gros (0,620), régression ordinale avec seuils (0,608).
+
+## 2026-10-30 17h20 · Claude Code / Claude Opus 5.5
+- Ce qui a changé : ligne `PersonStackPlus` retirée de `LOG.md` (ce n'est pas une soumission Kaggle) ; le code reste dans `essais/3MAS/person_plus.py`.
+- Pourquoi on pense que ça aide : essai non concluant (+0,001 sur PersonStack, dans le bruit) ; d'autres membres de l'équipe font mieux. Gardé pour trace.
+- Score de validation (moyenne ± écart-type) : 0,6221 ± 0,0021.
+- Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : aucune.
