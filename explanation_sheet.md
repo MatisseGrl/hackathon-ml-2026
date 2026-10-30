@@ -230,3 +230,112 @@ RMYU : modèle Final2, quotas exacts et recopie des doublons, mélange de modèl
 vérification des pistes (sélection imbriquée, relecture adversariale, fuite démasquée) et choix des deux soumissions finales.
 
 - Scores : validation macro-F1 0,6462 ± 0,0054 (quotas appliqués au pli avec ses vrais comptes ; n° 5 : 0,6468) ; public 0,65396
+
+## Soumission n° 7 : PersonStack HGB 3 graines + Final2 2 graines + doublons + quotas (17h58, code participant à renseigner)
+
+Code participant : à renseigner · Équipe n° : à renseigner · Date : 30/10
+
+
+
+### A. Dessinez le pipeline final de votre équipe (2 points)
+
+_Du CSV brut jusqu'à submission.csv : chaque étape dans une boîte, reliées par des flèches. Écrivez dans chaque boîte ce qui est fait et avec quel outil (ex. « one-hot sur sport », « RandomForest, max_depth=12 »). Indiquez où se fait la validation._
+
+
+
+    [ train.csv / test.csv ]
+
+              |
+
+              v
+
+    [ variables relatives à la personne : ratio à sa médiane, écart, rang, par utilisateur + sport (pandas) ]
+
+              |
+
+              v
+
+    [ étage 1 : HistGradientBoosting, niveau attendu de 0 à 2, hors pli sur le train ]
+
+              |
+
+              v
+
+    [ contexte : labels et résidus des séances proches de la même personne, ridge par groupe, découpage interne pour éviter la fuite ]
+
+              |
+
+              v
+
+    [ étage 2 : PersonStack HGB (3 graines) et Final2 (HGB, 2 graines), 3 probabilités chacun ]
+
+              |
+
+              v
+
+    [ mélange : log-probabilités, poids 1 PersonStack, 0,3 par graine de Final2 ]   <-- validation : mêmes plis que src/validation.py, 5 folds stratifiés, graine 42, macro-F1, script séparé
+
+              |
+
+              v
+
+    [ doublons exacts : label du train recopié ]
+              |
+              v
+    [ quotas par utilisateur + sport : méthode hongroise sur les log-probabilités ]
+
+              |
+
+              v
+
+    [ submission.csv ]
+
+
+
+### B. Pourquoi votre modèle final fait-il mieux que votre première soumission ? (2 points)
+
+_Nommez votre modèle final et expliquez en deux lignes comment il produit une prédiction. Puis citez deux décisions (variables, modèle, hyperparamètres, validation) et expliquez par quel mécanisme chacune a amélioré le score._
+
+- Modèle final : mélange PersonStack HGB + Final2, avec quotas.
+
+- Comment il prédit (deux lignes) : deux empilements de HGB comparent la séance aux habitudes de la personne et à ses séances proches, et donnent chacun trois probabilités. On moyenne leurs log-probabilités, puis on attribue les classes en respectant le nombre restant dans chaque groupe.
+
+- Décision 1 : variables relatives à la personne et séances voisines → mécanisme : « difficile » dépend de la personne et de sa forme du moment, pas de la vitesse brute (0,568 → 0,6183 sans quotas, HGB 1 graine)
+
+- Décision 2 : mélange de deux modèles et de 3 graines → mécanisme : leurs erreurs diffèrent en partie, la moyenne réduit la variance (0,6404 → 0,6505 avec quotas)
+
+
+
+### C. Une suggestion de l'IA que vous avez vérifiée (1 point)
+
+_Décrivez une suggestion de l'IA que votre équipe a rejetée ou corrigée, ou acceptée seulement après vérification. Qu'avez-vous vérifié, et comment ?_
+
+- Suggestion : script de l'IA qui mélange PersonStack et Final2.
+
+- Rejetée / corrigée / acceptée après vérification : corrigée.
+
+- Ce qu'on a vérifié, et comment : Final2 seul donnait 0,3865 alors que LOG.md notait 0,6041. Les deux modèles ne rangeaient pas leurs classes dans le même ordre. Après remise dans l'ordre, on retrouve 0,6041.
+
+
+
+### D. De la prédiction à la recommandation (1 point)
+
+_L'utilisateur 4127 court habituellement à une vitesse médiane de 10 km/h. Trois séances possibles : (1) 5 km à plat à 9 km/h, (2) 12 km à 10 km/h avec 300 m de dénivelé, (3) 8 km à plat à 12 km/h. Vous voulez recommander une séance de récupération facile. Comment utiliseriez-vous votre modèle pour choisir ? Quelle séance vous attendez-vous à ce qu'il choisisse, et qu'est-ce qui pourrait le rendre faux pour cet utilisateur ?_
+
+- Comment utiliser le modèle : construire les variables des trois séances pour cet utilisateur, sans quotas, et comparer la probabilité de `easy`.
+
+- Séance attendue : la séance 1, plus lente que sa médiane, courte et à plat.
+
+- Ce qui pourrait le rendre faux pour cet utilisateur : sa forme du moment, la chaleur ou un manque de séances semblables dans ses données ; la vraie mesure de l'effort n'est pas dans nos colonnes.
+
+
+
+### E. Votre contribution personnelle (non noté)
+
+_En deux lignes : qu'avez-vous fait personnellement dans l'équipe aujourd'hui ?_
+
+À écrire par chaque membre.
+
+
+
+- Scores : validation macro-F1 0,6505 ± 0,0064 (effectifs réels du fold, borne haute) ; public 0,65842
