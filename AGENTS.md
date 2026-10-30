@@ -8,6 +8,7 @@ Ce fichier est lu automatiquement par Claude Code et Codex. Si tu utilises un au
 - **Contrepartie obligatoire :** chaque changement est documenté dans **son propre** fichier `essais/<son_code>/<son_code>.md` (voir section 5), dans le même commit.
 - Avant de modifier un fichier commun, `git pull`. On ne supprime pas le travail des autres : on complète, on ne réécrit pas leurs lignes sans le noter.
 - `LOG.md` : une ligne par soumission Kaggle, on ajoute à la fin sans effacer les lignes des autres.
+- `conversations/<login_github>.md` : retranscription des conversations de chaque personne avec son assistant IA (voir section 5).
 - `notebook_equipe.ipynb` : comme les conflits y sont pénibles, prévenir à l'oral avant de le modifier. Pour tester une idée sans risque, on peut aussi travailler dans `essais/<code>/`.
 
 ## 2. Git : les seules commandes autorisées
@@ -22,7 +23,18 @@ git push
 - `git push --force`, `git push -f`, `git push --force-with-lease`
 - `git add .`, `git add -A`, `git commit -a` (on ajoute des fichiers précis, pour ne jamais pousser un fichier par erreur)
 - `git reset --hard`, `git checkout -- <fichier>`, `git restore <fichier>`, `git clean`, `git rebase`, `git stash` sur des fichiers des autres
-- créer, supprimer ou renommer des branches ; tout travail se fait sur `main`
+- pour un humain : créer, supprimer ou renommer des branches ; tout travail se fait sur `main`
+- pour un assistant IA : pousser directement sur `main`, ou fusionner (merge) sa branche sans l'accord de la personne qui l'utilise
+
+**Assistant IA : une branche par sujet.**
+```bash
+git pull
+git checkout -b <login_github>/<sujet>     # ex. Alban121/baseline-knn
+git add <fichiers précis> essais/<code>/<code>.md conversations/<login_github>.md
+git commit -m "ce que j'ai fait, score de validation"
+git push -u origin <login_github>/<sujet>
+```
+Quand le sujet de la branche est terminé, l'assistant ouvre une pull request vers `main` et **demande l'accord** de la personne qui l'utilise. Une fois l'accord donné, l'assistant fusionne lui-même la pull request (pas besoin de relecture humaine du code).
 
 **Si `git pull` ou `git push` affiche une erreur ou un conflit : ne rien forcer et ne rien supprimer. On peut résoudre un conflit seulement en gardant les deux versions ; au moindre doute, appeler le responsable du dépôt.**
 
@@ -47,6 +59,8 @@ git push
 ## 5. Assistant IA : comportement attendu
 - Tout fichier peut être modifié (sauf `cours/`), à condition de le noter dans la fiche `essais/<code>/<code>.md` de la personne.
 - Avant toute commande git, vérifier qu'elle est dans la liste autorisée. Sinon, refuser.
+- Ne jamais afficher un fichier de données en entier (`cat`, `print(df)`, lecture complète d'un CSV dans la conversation) : seulement `df.head()`, `df.shape`, `df.info()`, `df.describe()` ou `value_counts()`. Cela évite de gaspiller des tokens.
+- Tenir un fichier `conversations/<login_github>.md`, où `<login_github>` est le nom GitHub de la personne qui utilise l'assistant. S'il n'existe pas, le créer ; il commence par la ligne `#START`. Y ajouter la retranscription de chaque conversation (messages de la personne et réponses de l'assistant), et le committer avec le reste du travail.
 - Expliquer le code produit simplement : chaque membre passe un test individuel et doit pouvoir expliquer le modèle sans écran.
 - **Fiche de commit.** Chaque IA qui commit pour une personne crée (la première fois) ou complète (ensuite) le fichier
   `essais/<code>/<code>.md` de cette personne, **dans le même commit** que le code. Ce fichier est nommé d'après le code participant
