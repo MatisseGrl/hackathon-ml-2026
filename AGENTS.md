@@ -31,7 +31,7 @@ git push
 - Uniquement pandas, NumPy, matplotlib et des modèles **scikit-learn qui ne sont pas des réseaux de neurones**.
   Interdit : deep learning (y compris `MLPClassifier`), XGBoost, LightGBM, CatBoost, données externes, code d'une autre équipe.
 - Tout modèle doit pouvoir être expliqué sur papier.
-- Les données ne sont **jamais** commitées (`data/`, `*.csv` sont ignorés). Pas de `kaggle.json` ni de token dans le dépôt.
+- Les données Kaggle (`data/`) sont versionnées dans le dépôt **privé**, pour l'équipe seulement. Pas de `kaggle.json` ni de token dans le dépôt.
 - Aucune information personnelle (nom, e-mail, téléphone) dans les fichiers ou les messages de commit : seulement le code participant.
 - **Personne ne soumet sur Kaggle sans accord de l'équipe** : 15 soumissions max pour toute l'équipe, et chaque soumission = une ligne dans `LOG.md`.
 

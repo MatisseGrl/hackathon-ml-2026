@@ -1,8 +1,4 @@
-# Données Kaggle : jamais dans le dépôt
-data/*
-!data/.gitkeep
-*.csv
-!cours/**/*.csv
+# Archives et PDF (les CSV de data/ sont versionnés, dépôt privé)
 *.zip
 *.pdf
 submissions/*

@@ -9,7 +9,7 @@ Métrique : **macro-F1**. Soumission : `submission.csv` avec les colonnes `worko
 - ❌ deep learning (y compris `MLPClassifier`), XGBoost/LightGBM/CatBoost (hors scikit-learn), données externes, partage de code entre équipes
 - Chaque modèle soumis doit pouvoir être **expliqué sur papier**.
 - **15 soumissions Kaggle maximum** pour l'équipe → une ligne dans `LOG.md` par soumission.
-- Le dépôt reste **privé**. Les données ne sont **jamais** commitées (`data/` est ignoré).
+- Le dépôt reste **privé** (il contient les données Kaggle, `data/`).
 
 ## Installation (5 min)
 ```bash
