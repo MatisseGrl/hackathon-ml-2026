@@ -124,3 +124,27 @@ Deux points à signaler :
 **Alban121 :** ne modifie pas log.md ce n ai pas un submit kaggle. Met juste le code dans mes essaies
 
 **Claude :** Ligne retirée de `LOG.md`, essai noté non concluant dans `essais/3MAS/3MAS.md`, PR #10 fusionnée.
+
+**Alban121 :** ouvre un fil , dis moi quel est le meilleur score actuellement de notre equipe
+
+**Claude :** **Meilleur score public Kaggle : 0,65332**, soumission n° 4 (vers 17h00, poussée par MatisseGrl). Le modèle est `PersonStack` HGB seul (`src/person_stack.py`), suivi des quotas exacts par utilisateur et sport (`src/quotas.py`, méthode hongroise). Juste derrière vient la n° 3 de RMYU à 0,65298 (mélange 0,6 PersonStack + 0,4 Final2, avec doublons et quotas).
+
+**Meilleure validation croisée :** c'est ce même modèle n° 4, avec 0,6404 ± 0,0038 (effectifs réels du fold, donc borne haute) ou 0,6344 ± 0,0026 (erreur simulée, plus réaliste). Quelques essais non soumis atteignent 0,6406 à 0,6423, mais ils restent dans le bruit d'après `LOG.md`.
+
+Sans quotas, le meilleur est `PersonStack` à 0,6207. Ton dernier essai, PersonStackPlus, est à 0,6221 ± 0,0021. Toutes les branches sont fusionnées dans `main`, il n'y a donc pas de meilleur score caché ailleurs.
+
+**Alban121 :** En te basant sur ca essaye de reussir a faire un meilleur score. Tu peux tester ce que tu veux, des que tu as un resultat potentiellement superieur a ce qu on a actuellement envoie le moi.
+
+**Claude :** Je commence par relancer le meilleur modèle actuel (PersonStack + quotas) pour avoir une base, puis je teste des améliorations.
+
+**Claude :** J'ai un fichier qui pourrait battre notre meilleur score, mais le gain reste petit. Entre-temps, l'équipe a soumis la n° 7, qui fait 0,65842 en public : c'est elle qu'il faut battre maintenant.
+
+Mon fichier fait la moyenne de 5 modèles : PersonStack HGB, PersonStack HGB + ExtraTrees, ton PersonStackPlus et Final2 avec deux graines. Ensuite il recopie le label des doublons exacts et applique les quotas par utilisateur + sport, sans scipy.
+
+J'ai tout évalué avec le même protocole, plus réaliste que celui de LOG.md. Mon mélange fait **0,6342 ± 0,0051**, contre 0,6320 pour la recette de la n° 7 que j'ai refaite. Il gagne sur les 5 plis, mais seulement de +0,002 en moyenne. Je n'avais qu'une graine de PersonStack alors que la n° 7 en a trois, donc une partie de cet écart peut venir de là. Son test donne 94 % de prédictions identiques à la n° 7.
+
+À toi de voir si l'équipe veut utiliser une soumission là-dessus. La PR [#13](https://github.com/MatisseGrl/hackathon-ml-2026/pull/13) est prête, je la fusionne quand tu me donnes ton accord.
+
+**Alban121 :** j ai fait un commit kaggle, met a jour log.md et merge
+
+**Claude :** Je remplis la ligne de LOG.md et la fiche d'explication, puis je fusionne la PR.
