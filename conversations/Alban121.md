@@ -1,4 +1,4 @@
-#START
+#START 3MAS Hackathon ML 2026
 
 # Conversations IA de Alban121
 
@@ -41,3 +41,34 @@
 **Claude :** Modèle `essais/3MAS/modele_06.py` : 0,6007 ± 0,0053 avec `src/validation.py` (base de l'équipe : 0,568). Trois idées : habitudes de chaque personne calculées sur train + test (sans la cible), résidu de vitesse « plus rapide que prévu pour ce parcours » par utilisateur-sport, et `user_id` donné aux arbres (HistGB + ExtraTrees moyennés). Le gros du gain vient de `user_id` (+0,02). CSV de test écrit dans `essais/3MAS/`, non soumis sur Kaggle. Pull request ouverte, fusion après ton accord.
 
 **Claude :** (en fusionnant `main`) un coéquipier a déjà poussé `PersonStack` (`src/person_stack.py`) à 0,6207 ± 0,0028, meilleur que ce modèle (0,6007). Conflit dans `LOG.md` résolu en gardant les deux séries de lignes. À noter : l'équipe a rejeté le calcul des habitudes sur les lignes du test, que ce modèle utilise.
+
+#CHECKPOINT2
+
+## 2026-10-30 : vérifier les règles du dépôt (Claude, projet claude.ai, branche `Alban121/regles-readme`) - mot pour mot
+
+**Alban121 :** ouvre un fil poiur verifier les regles du github
+
+**Claude :** J'ai relu les règles sur `main` à jour (`AGENTS.md`, `CLAUDE.md`, `README.md`, `ressources/`) sans ouvrir les données. Sur l'essentiel, tout est bon : elles respectent bien le sujet officiel (scikit-learn sans réseau de neurones, macro-F1, 15 soumissions, une ligne par soumission dans `LOG.md`), et `CLAUDE.md` charge bien `AGENTS.md`. Je n'ai trouvé aucun import interdit dans le code.
+
+**Ce qui se contredit**
+1. Le `README.md` n'a pas été mis à jour : il dit encore que `data/` n'est « pas versionné », qu'il faut télécharger les CSV depuis Kaggle, et que chacun « travaille dans son dossier `essais/` ». Or `AGENTS.md` dit maintenant que les données sont dans le dépôt et que tout le monde peut modifier n'importe quel fichier.
+2. Les branches : la règle demande `<login>/<sujet>`, mais la PR #1 utilisait `claude/project-thread-…`. Les PR #3, #4 et #5 respectent bien la règle.
+3. `#START` : le starter demande `#START <code> Hackathon ML 2026`, alors que les fichiers de conversation commencent seulement par `#START`, sans le code. Je n'ai trouvé aucun `#CHECKPOINT` nulle part.
+4. Préparer les données sur le test : `LOG.md` rejette « UserStats ajusté sur le test » (on ne prétraite pas sur le test), mais le modèle 3MAS (0,601) le fait. C'est permis puisque la cible n'est pas utilisée, mais l'équipe devrait choisir une seule position.
+
+**Ce qui n'est pas appliqué**
+- Seuls Alban121 et MatisseGrl ont un fichier `conversations/`. Ceux de Garlot et de RMYU (XOUMITO) manquent.
+- La soumission n°2 a un score public, mais les colonnes « Heure » et « Qui » sont vides, comme pour la n°1.
+- La fiche `essais/<code>/<code>.md` n'est plus obligatoire (MatisseGrl l'a retirée dans la PR #3). Seul 3MAS en a encore une.
+
+Je n'ai modifié aucun fichier. Si tu veux, je peux corriger le README et ajouter le code dans `#START` sur une branche.
+
+**Alban121 :** 1. Met a jour le READ.me. 
+
+2. C est pas grave
+3. Modifie la regle pour que ca corresponde. Ajoute un #CHECKPOINT2 pour ma discution. Pour la regle sur la retranscription dans les fichier utilisateur.md, il faut que ce soit mot pout mot.
+4. Je ne comprends pas ce que tu veux dire.
+5. Ajoute une regle : Qunad quelqu'un dit "j'ai fait une submission kaggle" l'agent remplis automatiquement le LOG.md avec les changement par rapport au dernier modele submitted, l heure et autre.
+6. Il n'y a rien pour la explanation sheet. Il n y avait pas une regle dessus ?
+
+**Claude :** Je m'y mets : je cherche d'abord s'il existait une règle sur la fiche d'explication, puis je modifie les fichiers sur une branche.
