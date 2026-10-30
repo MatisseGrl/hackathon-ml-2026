@@ -34,6 +34,7 @@ Les essais non soumis peuvent aussi être notés dans la section « Expériences
 | 16h20 |     | Rejeté | Quotas d'un tiers par groupe | | 0,6037 | Moins bon que sans quotas |
 | 16h20 |     | Rejeté | `UserStats` ajusté aussi sur les lignes du test | | 0,6146 ± 0,0049 | +0,0006 seulement, c'est du bruit, et on ne prétraite pas sur le test |
 | 16h30 | 3MAS | Ensemble | Vote soft : HistGB (63 feuilles, lr 0,03, user_id catégoriel) + ExtraTrees (500 arbres, user_id one-hot) | UserStats sur train+test (sans cible) + résidus de vitesse par utilisateur-sport + user_id | 0,601 ± 0,005 | `essais/3MAS/modele_06.py`. user_id catégoriel seul : 0,568 → 0,589 |
+| 17h15 | 3MAS | Vote | `PersonStackPlus` (`essais/3MAS/person_plus.py`) : PersonStack + résidus de vitesse + user_id catégoriel, 2e étage plus régularisé, moyenne de 5 graines | toutes + res + user_cat | 0,6221 ± 0,0021 | +0,001 sur PersonStack : dans le bruit, mais écart-type plus bas. Rejeté : régression ordinale à seuils 0,608 |
 | 16h50 |     | Empilement + quotas | **`PersonStack` HGB seul + quotas** | toutes | 0,6404 ± 0,0038 | Effectifs réels du fold (borne haute). Avec une erreur simulée d'une séance dans 2 groupes sur 3 : 0,6344 ± 0,0026. Soumis |
 | 16h50 |     | Vote + quotas | Moyenne HGB + ExtraTrees + quotas | toutes | 0,6406 ± 0,0053 | Pas mieux que le HGB seul, qui est plus simple |
 | 16h50 |     | Arbres + quotas | HGB sur UserStats seul + quotas | UserStats | 0,5926 ± 0,0049 | L'empilement reste nécessaire |

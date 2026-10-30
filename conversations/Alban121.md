@@ -112,3 +112,9 @@ Deux points à signaler :
 **Alban121 :** merge on refera les format plus tard car la explanation sheet va surement etre modifie d ici la
 
 **Claude :** PR #9 fusionnée dans `main`. On reprendra le format des anciennes sections plus tard.
+
+#CHECKPOINT-2
+
+**Alban121 :** garde ce model dans mes essais. Merge cette branche. Ensuite, essaie d ameliorer le resultat en partant de la base qui a fait 0,62 ou alors d'une autre base comme tu veux. Entre temps le prof a donner cette indice si ca peux aider : "Hint 1 (free, for everyone) 16:20 · HINT 1 "Hard" is measured for each person. Is 12 km/h fast? For whom? Compare a workout with what that person usually does in that sport. Write #CHECKPOINT-2 in your AI conversation. Hints 2 and 3 can now be bought by the team leader."
+
+**Claude :** PR #5 fusionnée. Branche `Alban121/ameliorer-person-stack` : `essais/3MAS/person_plus.py` (`PersonStackPlus`) part de PersonStack et ajoute résidus de vitesse, `user_id` catégoriel, un 2e étage plus régularisé et 5 graines moyennées. Score 0,6221 ± 0,0021 contre 0,6207 ± 0,0028 : gain dans le bruit, le modèle semble plafonner vers 0,62. L'indice 1 est déjà exploité par UserStats et PersonStack (comparaison aux habitudes de la personne dans le sport).
