@@ -1,8 +1,6 @@
 # Archives et PDF (les CSV de data/ sont versionnés, dépôt privé)
 *.zip
 *.pdf
-submissions/*
-!submissions/.gitkeep
 
 # Python / Jupyter
 __pycache__/
