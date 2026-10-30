@@ -6,6 +6,7 @@ Ce fichier est lu automatiquement par Claude Code et Codex. Si tu utilises un au
 ## 1. Qui touche quoi
 - Chaque membre travaille **uniquement** dans `essais/<son_code_participant>/`. Ne jamais modifier, déplacer ni supprimer un fichier en dehors de ce dossier.
 - `notebook_equipe.ipynb`, `src/validation.py`, `README.md`, `AGENTS.md`, `CLAUDE.md`, `.gitignore`, `requirements.txt` : **réservés au responsable du dépôt**. Pour y ajouter quelque chose (variable, modèle), on le prévient à l'oral avec le chemin de son fichier d'essai.
+- `cours/` : les notebooks et données du cours, **en lecture seule**. Pour réutiliser un exemple, le copier dans son dossier d'essai.
 - `LOG.md` : on peut **ajouter une ligne** à la fin d'un tableau. Ne jamais modifier ni supprimer une ligne existante.
 - Pour partir d'un fichier commun : le **copier** dans son dossier (`essais/<code>/mon_essai.ipynb`) puis travailler sur la copie.
 

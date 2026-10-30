@@ -2,7 +2,9 @@
 data/*
 !data/.gitkeep
 *.csv
+!cours/**/*.csv
 *.zip
+*.pdf
 submissions/*
 !submissions/.gitkeep
 

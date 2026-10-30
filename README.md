@@ -25,6 +25,7 @@ data/                 # CSV Kaggle (non versionnés)
 src/validation.py     # validation commune : mêmes folds, même graine, macro-F1
 notebook_equipe.ipynb # notebook final rendu sur Boostcamp
 essais/<code>/        # un dossier par personne (code participant, pas de nom)
+cours/                # notebooks du cours (classification, régression, clustering…), lecture seule
 submissions/          # fichiers soumis (non versionnés)
 LOG.md                # journal des soumissions et des expériences
 ```
