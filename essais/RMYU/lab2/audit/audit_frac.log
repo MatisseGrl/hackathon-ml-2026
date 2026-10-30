@@ -1,0 +1,19 @@
+groupes train 193 ; train>cible (pct) 0 ; groupes test sans train 0
+somme des restes = taille test du groupe : True
+test      part lignes en groupe de taille 1 : 0.000 ; <=3 : 0.001 ; taille médiane par ligne 64
+val pli 0 part lignes en groupe de taille 1 : 0.002 ; <=3 : 0.012 ; taille médiane par ligne 40
+val 2 plis part lignes en groupe de taille 1 : 0.000 ; <=3 : 0.002 ; taille médiane par ligne 81
+--- oracle demi-pli (~7,5 % de chaque groupe) graine 0 (3s) ; part lignes en groupe de taille 1 : 0.008 ; <=3 : 0.044 ; taille médiane par ligne 21
+person           0.6616 | Δsub3 -0.0041 (1/10) | Δperson +0.0000
+sub3 .6p+.4f2    0.6657 | Δsub3 +0.0000 (0/10) | Δperson +0.0041
+egal5            0.6679 | Δsub3 +0.0022 (7/10) | Δperson +0.0062
+egal4 sans r2    0.6677 | Δsub3 +0.0021 (7/10) | Δperson +0.0061
+.3p+.3p7+.4f2    0.6662 | Δsub3 +0.0005 (6/10) | Δperson +0.0046
+egal3 p,p7,f2    0.6661 | Δsub3 +0.0004 (5/10) | Δperson +0.0045
+--- oracle demi-pli (~7,5 % de chaque groupe) graine 1 (5s) ; part lignes en groupe de taille 1 : 0.011 ; <=3 : 0.038 ; taille médiane par ligne 20
+person           0.6630 | Δsub3 -0.0059 (3/10) | Δperson +0.0000
+sub3 .6p+.4f2    0.6689 | Δsub3 +0.0000 (0/10) | Δperson +0.0059
+egal5            0.6693 | Δsub3 +0.0004 (6/10) | Δperson +0.0063
+egal4 sans r2    0.6700 | Δsub3 +0.0011 (5/10) | Δperson +0.0070
+.3p+.3p7+.4f2    0.6684 | Δsub3 -0.0005 (4/10) | Δperson +0.0054
+egal3 p,p7,f2    0.6690 | Δsub3 +0.0001 (4/10) | Δperson +0.0060

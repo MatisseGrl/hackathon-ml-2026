@@ -1,5 +1,5 @@
 """Mesure simple : HGB 300 it (lr .05) sur build+add_resid [+ add_physio], 5 plis communs, argmax et quotas par user.
-Usage (depuis C:/Users/curie/hk/essais/RMYU) : python -u lab/physio/eval_simple.py <variant> [variant...]
+Usage (depuis essais/RMYU) : python -u lab/physio/eval_simple.py <variant> [variant...]
 variants : base, phys, phys_light"""
 import sys, time; sys.path.append("../.."); sys.path.append("."); sys.path.append("lab/physio")
 import numpy as np, pandas as pd

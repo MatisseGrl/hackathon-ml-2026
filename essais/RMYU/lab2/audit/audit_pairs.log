@@ -1,0 +1,19 @@
+groupes train 193 ; train>cible (pct) 0 ; groupes test sans train 0
+somme des restes = taille test du groupe : True
+test      part lignes en groupe de taille 1 : 0.000 ; <=3 : 0.001 ; taille médiane par ligne 64
+val pli 0 part lignes en groupe de taille 1 : 0.002 ; <=3 : 0.012 ; taille médiane par ligne 40
+val 2 plis part lignes en groupe de taille 1 : 0.000 ; <=3 : 0.002 ; taille médiane par ligne 81
+--- oracle 2 plis (10 paires) (5s)
+person           0.6262 | Δsub3 -0.0044 ± 0.0038 (1/10) | Δperson +0.0000 (0/10)
+sub3 .6p+.4f2    0.6306 | Δsub3 +0.0000 ± 0.0000 (0/10) | Δperson +0.0044 (9/10)
+egal5            0.6322 | Δsub3 +0.0016 ± 0.0028 (7/10) | Δperson +0.0060 (10/10)
+egal4 sans r2    0.6322 | Δsub3 +0.0016 ± 0.0017 (8/10) | Δperson +0.0060 (10/10)
+.3p+.3p7+.4f2    0.6305 | Δsub3 -0.0001 ± 0.0012 (4/10) | Δperson +0.0043 (10/10)
+egal3 p,p7,f2    0.6314 | Δsub3 +0.0008 ± 0.0020 (7/10) | Δperson +0.0052 (10/10)
+--- oracle 3 plis (10 triplets) (8s)
+person           0.6216 | Δsub3 -0.0045 ± 0.0021 (0/10) | Δperson +0.0000 (0/10)
+sub3 .6p+.4f2    0.6261 | Δsub3 +0.0000 ± 0.0000 (0/10) | Δperson +0.0045 (10/10)
+egal5            0.6280 | Δsub3 +0.0019 ± 0.0017 (9/10) | Δperson +0.0064 (10/10)
+egal4 sans r2    0.6279 | Δsub3 +0.0018 ± 0.0018 (7/10) | Δperson +0.0062 (10/10)
+.3p+.3p7+.4f2    0.6267 | Δsub3 +0.0006 ± 0.0012 (6/10) | Δperson +0.0051 (10/10)
+egal3 p,p7,f2    0.6270 | Δsub3 +0.0009 ± 0.0009 (9/10) | Δperson +0.0054 (10/10)

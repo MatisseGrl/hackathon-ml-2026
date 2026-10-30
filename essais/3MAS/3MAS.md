@@ -11,3 +11,15 @@
 - Pourquoi on pense que ça aide : (1) les habitudes de chaque utilisateur (UserStats) sont calculées sur train + test réunis, sans la cible, donc mieux estimées ; (2) une régression linéaire par utilisateur-sport prédit la vitesse attendue selon durée, pente, saison et année ; le résidu dit « plus rapide que d'habitude pour ce parcours » ; (3) les arbres reçoivent `user_id` (catégoriel pour HistGB, one-hot pour ExtraTrees) et peuvent apprendre des règles propres à chaque personne ; (4) la moyenne des probabilités des deux modèles réduit leurs erreurs.
 - Score de validation (moyenne ± écart-type) : 0,6007 ± 0,0053 (folds : 0,599 / 0,605 / 0,591 / 0,603 / 0,606). Étapes : base équipe 0,568 ; habitudes sur train+test 0,574 ; + résidus 0,576 ; + user_id catégoriel 0,589 ; HistGB 63 feuilles 0,595 ; + ExtraTrees 0,601.
 - Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : rejetées car sans gain (≤ 0,575) : profils moyens de chaque classe par utilisateur (calculés en validation interne), corrélations par utilisateur entre variables et difficulté, et découpage forcé en tiers par utilisateur. Vérifié : tous les `user_id` du test sont dans le train, donc `StratifiedKFold` reste adapté (pas besoin de `GroupKFold`).
+
+## 2026-10-30 17h15 · Claude Code / Claude Opus 5.5
+- Ce qui a changé : nouveau `essais/3MAS/person_plus.py` (`PersonStackPlus`, sous-classe de `src/person_stack.PersonStack`, sans modifier `src/`) ; une ligne dans `LOG.md`.
+- Pourquoi on pense que ça aide : on ajoute au 2e étage de PersonStack les résidus de vitesse de `modele_06.py` (appris sur le train seulement) et `user_id` en catégorie ; HistGB plus régularisé (min_samples_leaf 80, l2 10) ; 5 graines moyennées pour réduire la variance.
+- Score de validation (moyenne ± écart-type) : 0,6221 ± 0,0021 (PersonStack : 0,6207 ± 0,0028). Étapes sur les mêmes folds : PersonStack 0,618 ; + user_id seul 0,617 ; + résidus 0,620 ; 2e étage régularisé 0,621 ; 5 graines 0,622.
+- Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : gain dans le bruit, dit tel quel. Rejetées : HistGB plus gros (0,620), régression ordinale avec seuils (0,608).
+
+## 2026-10-30 17h20 · Claude Code / Claude Opus 5.5
+- Ce qui a changé : ligne `PersonStackPlus` retirée de `LOG.md` (ce n'est pas une soumission Kaggle) ; le code reste dans `essais/3MAS/person_plus.py`.
+- Pourquoi on pense que ça aide : essai non concluant (+0,001 sur PersonStack, dans le bruit) ; d'autres membres de l'équipe font mieux. Gardé pour trace.
+- Score de validation (moyenne ± écart-type) : 0,6221 ± 0,0021.
+- Suggestion de l'IA vérifiée, rejetée ou corrigée (et comment) : aucune.

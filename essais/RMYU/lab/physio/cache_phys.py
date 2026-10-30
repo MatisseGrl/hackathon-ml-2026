@@ -1,5 +1,5 @@
 """Comme cache.py mais avec X = add_physio(add_resid(build(train, test))) (colonnes ph_* en plus).
-Usage (depuis C:/Users/curie/hk/essais/RMYU) :
+Usage (depuis essais/RMYU) :
   python -u lab/physio/cache_phys.py <nom> <module:Classe> '<kwargs json>'  -> lab/physio/cache_<nom>.npz
 Le cache a le même format que cache.py (P{f}, va{f}, Pfull) ; pour post.py, copier/lier dans RMYU/cache_<nom>.npz."""
 import sys, json, time, importlib, os; sys.path.append("../.."); sys.path.append("."); sys.path.append("lab/physio")

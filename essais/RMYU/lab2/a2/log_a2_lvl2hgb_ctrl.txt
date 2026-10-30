@@ -1,0 +1,13 @@
+[    2s] sauvé cache_a2_ctrlhgb.npz
+[    5s] REF 0.6468 ± 0.0073 plis [0.6519 0.6355 0.6475 0.6426 0.6563]
+[    5s] a2_ctrlhgb beta=0.0 0.6468 ± 0.0073 delta +0.0000 plis gagnés 0/5 delta plis [0. 0. 0. 0. 0.]
+[    5s] a2_ctrlhgb beta=0.1 0.6461 ± 0.0076 delta -0.0007 plis gagnés 1/5 delta plis [-0.0013 -0.0018 -0.0004  0.0002  0.    ]
+[    5s] a2_ctrlhgb beta=0.2 0.6461 ± 0.0082 delta -0.0007 plis gagnés 2/5 delta plis [-0.0004 -0.0024  0.     -0.0009  0.0004]
+[    6s] a2_ctrlhgb beta=0.3 0.6465 ± 0.0083 delta -0.0003 plis gagnés 3/5 delta plis [ 0.0009 -0.0022  0.     -0.0007  0.0004]
+[    6s] a2_ctrlhgb beta=0.4 0.6463 ± 0.0085 delta -0.0005 plis gagnés 3/5 delta plis [ 0.0007 -0.0029  0.0011 -0.0013  0.    ]
+[    6s] a2_ctrlhgb beta=0.5 0.6463 ± 0.0081 delta -0.0005 plis gagnés 1/5 delta plis [-0.0002 -0.0024  0.0011 -0.0007 -0.0002]
+[    6s] a2_ctrlhgb beta=0.6 0.6463 ± 0.0075 delta -0.0005 plis gagnés 2/5 delta plis [ 0.0004 -0.0009  0.0007 -0.0013 -0.0013]
+[    6s] a2_ctrlhgb beta=0.8 0.6462 ± 0.0085 delta -0.0005 plis gagnés 2/5 delta plis [ 0.0015 -0.0029 -0.0007 -0.0009  0.0002]
+[    6s] a2_ctrlhgb beta=1.0 0.6468 ± 0.0069 delta +0.0000 plis gagnés 3/5 delta plis [ 0.0011  0.0002  0.0011 -0.0002 -0.0022]
+[    6s] a2_ctrlhgb IMBRIQUÉ 0.6458 ± 0.0075 delta -0.0009 plis gagnés 0/5 delta [ 0.     -0.0022  0.     -0.0002 -0.0022] betas choisis [0, 0.3, 0, 1.0, 1.0]
+[    6s] fini

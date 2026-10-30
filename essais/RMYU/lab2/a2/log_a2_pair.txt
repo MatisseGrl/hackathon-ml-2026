@@ -1,0 +1,31 @@
+[    1s] groupes 193 max 2535
+[   12s] passe 0: 361470 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7579; corr(u, y) pli 0.5603
+[   23s] passe 1: 361228 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7613; corr(u, y) pli 0.5718
+[   33s] passe 2: 361402 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7606; corr(u, y) pli 0.5733
+[   40s] passe 3: 361356 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7560; corr(u, y) pli 0.5535
+[   47s] passe 4: 361448 paires, exactitude comparateur (pli tenu, paires de classes diff.) 0.7552; corr(u, y) pli 0.5556
+[   47s] coefs LR (classes x variables): [[0.85, -0.17, -0.41, 0.06, -0.03, -0.14, 0.02, 0.0, -0.03, 0.02, -0.0, -0.01], [-0.44, 0.45, -0.41, -0.0, 0.07, -0.0, -0.05, 0.0, 0.02, -0.01, 0.0, -0.01], [-0.4, -0.28, 0.82, -0.06, -0.05, 0.14, 0.04, 0.0, 0.01, -0.01, -0.0, 0.02]]
+[   47s] sauvé cache_a2_pair.npz
+[   48s] sauvé cache_a2_ctrl.npz
+[   51s] REF 0.6468 ± 0.0073 plis [0.6519 0.6355 0.6475 0.6426 0.6563]
+[   51s] a2_pair beta=0.0 0.6468 ± 0.0073 delta +0.0000 plis gagnés 0/5 delta plis [0. 0. 0. 0. 0.]
+[   51s] a2_pair beta=0.1 0.6465 ± 0.0061 delta -0.0003 plis gagnés 3/5 delta plis [-0.0013  0.0007  0.0004  0.0011 -0.0024]
+[   51s] a2_pair beta=0.2 0.6461 ± 0.0061 delta -0.0007 plis gagnés 1/5 delta plis [-0.0013  0.0011 -0.0004 -0.0002 -0.0024]
+[   51s] a2_pair beta=0.3 0.6467 ± 0.0055 delta -0.0001 plis gagnés 1/5 delta plis [-0.0013  0.0033 -0.0004  0.     -0.002 ]
+[   51s] a2_pair beta=0.4 0.6472 ± 0.0058 delta +0.0004 plis gagnés 2/5 delta plis [-0.0018  0.0037  0.0011 -0.0002 -0.0009]
+[   51s] a2_pair beta=0.5 0.6473 ± 0.0059 delta +0.0006 plis gagnés 2/5 delta plis [-0.0026  0.0042  0.0033 -0.0011 -0.0009]
+[   51s] a2_pair beta=0.6 0.6474 ± 0.0059 delta +0.0006 plis gagnés 2/5 delta plis [-0.0022  0.0037  0.0037 -0.0007 -0.0015]
+[   52s] a2_pair beta=0.8 0.6477 ± 0.0056 delta +0.0009 plis gagnés 2/5 delta plis [-0.0018  0.0044  0.0033 -0.     -0.0013]
+[   52s] a2_pair beta=1.0 0.6477 ± 0.0046 delta +0.0009 plis gagnés 3/5 delta plis [-0.0026  0.0051  0.0022  0.0022 -0.0022]
+[   52s] a2_pair IMBRIQUÉ 0.6471 ± 0.0052 delta +0.0004 plis gagnés 2/5 delta [-0.0026  0.0044  0.0022 -0.     -0.0022] betas choisis [1.0, 0.8, 1.0, 0.8, 1.0]
+[   52s] a2_ctrl beta=0.0 0.6468 ± 0.0073 delta +0.0000 plis gagnés 0/5 delta plis [0. 0. 0. 0. 0.]
+[   52s] a2_ctrl beta=0.1 0.6468 ± 0.0071 delta -0.0000 plis gagnés 1/5 delta plis [-0.0004  0.0004 -0.      0.      0.    ]
+[   52s] a2_ctrl beta=0.2 0.6468 ± 0.0070 delta +0.0000 plis gagnés 4/5 delta plis [-0.0018  0.0004  0.0009  0.0002  0.0002]
+[   52s] a2_ctrl beta=0.3 0.6471 ± 0.0066 delta +0.0003 plis gagnés 3/5 delta plis [-0.0018  0.0011  0.0013  0.0011 -0.0002]
+[   52s] a2_ctrl beta=0.4 0.6471 ± 0.0064 delta +0.0004 plis gagnés 3/5 delta plis [-0.0018  0.0015  0.0013  0.0011 -0.0004]
+[   52s] a2_ctrl beta=0.5 0.6470 ± 0.0065 delta +0.0003 plis gagnés 3/5 delta plis [-0.0018  0.0011  0.0013  0.0011 -0.0004]
+[   53s] a2_ctrl beta=0.6 0.6473 ± 0.0065 delta +0.0005 plis gagnés 3/5 delta plis [-0.0011  0.0011  0.0015  0.0015 -0.0004]
+[   53s] a2_ctrl beta=0.8 0.6472 ± 0.0067 delta +0.0004 plis gagnés 3/5 delta plis [-0.0009  0.0007  0.0004  0.002  -0.0002]
+[   53s] a2_ctrl beta=1.0 0.6472 ± 0.0069 delta +0.0004 plis gagnés 4/5 delta plis [-0.0007  0.0002  0.0009  0.0018  0.    ]
+[   53s] a2_ctrl IMBRIQUÉ 0.6469 ± 0.0068 delta +0.0001 plis gagnés 3/5 delta [-0.0011  0.0002  0.0004  0.0015 -0.0004] betas choisis [0.6, 1.0, 0.8, 0.6, 0.6]
+[   53s] fini

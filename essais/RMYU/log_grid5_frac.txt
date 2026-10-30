@@ -1,0 +1,15 @@
+['person', 'f2', 'neighbor', 'person7', 'resid2'] règle=frac : 1001 combinaisons, préparation 1s
+person=0.2 f2=0.2 neighbor=0.1 person7=0.4 resid2=0.1 dup+quota 0.6342 ± 0.0076 | argmax 0.6245 | plis [0.6415 0.6267 0.6394 0.6235 0.6399]
+person=0.1 f2=0.2 neighbor=0.1 person7=0.5 resid2=0.1 dup+quota 0.6339 ± 0.0065 | argmax 0.6236 | plis [0.6396 0.6261 0.6373 0.6259 0.6404]
+person=0.1 f2=0.1 neighbor=0.2 person7=0.4 resid2=0.2 dup+quota 0.6338 ± 0.0065 | argmax 0.6249 | plis [0.6425 0.6252 0.6363 0.6272 0.6379]
+person=0.0 f2=0.1 neighbor=0.2 person7=0.4 resid2=0.3 dup+quota 0.6337 ± 0.0067 | argmax 0.6232 | plis [0.641  0.6243 0.6359 0.6274 0.6399]
+person=0.0 f2=0.3 neighbor=0.2 person7=0.4 resid2=0.1 dup+quota 0.6336 ± 0.0058 | argmax 0.6228 | plis [0.6397 0.6281 0.6312 0.6277 0.6414]
+person=0.2 f2=0.1 neighbor=0.1 person7=0.4 resid2=0.2 dup+quota 0.6336 ± 0.0061 | argmax 0.6244 | plis [0.6398 0.6259 0.6356 0.6267 0.64  ]
+person=0.3 f2=0.1 neighbor=0.1 person7=0.3 resid2=0.2 dup+quota 0.6336 ± 0.0060 | argmax 0.6243 | plis [0.6411 0.6273 0.6366 0.6256 0.6372]
+person=0.1 f2=0.3 neighbor=0.1 person7=0.3 resid2=0.2 dup+quota 0.6336 ± 0.0071 | argmax 0.6220 | plis [0.6411 0.6252 0.6325 0.6267 0.6424]
+person=0.3 f2=0.2 neighbor=0.1 person7=0.3 resid2=0.1 dup+quota 0.6336 ± 0.0062 | argmax 0.6244 | plis [0.6408 0.628  0.6359 0.6246 0.6385]
+person=0.2 f2=0.2 neighbor=0.1 person7=0.3 resid2=0.2 dup+quota 0.6335 ± 0.0073 | argmax 0.6239 | plis [0.6408 0.6241 0.6349 0.6261 0.6417]
+person=0.0 f2=0.2 neighbor=0.2 person7=0.4 resid2=0.2 dup+quota 0.6335 ± 0.0075 | argmax 0.6227 | plis [0.6415 0.6228 0.6362 0.6265 0.6404]
+person=0.5 f2=0.1 neighbor=0.1 person7=0.1 resid2=0.2 dup+quota 0.6335 ± 0.0052 | argmax 0.6248 | plis [0.637  0.6286 0.6339 0.6269 0.6408]
+imbriqué : 0.6305 ± 0.0064 plis [0.637  0.6228 0.6312 0.6235 0.6379] ; choix ['0.5 0.1 0.1 0.1 0.2', '0.0 0.2 0.2 0.4 0.2', '0.0 0.3 0.2 0.4 0.1', '0.2 0.2 0.1 0.4 0.1', '0.1 0.1 0.2 0.4 0.2']
+fini 105s
